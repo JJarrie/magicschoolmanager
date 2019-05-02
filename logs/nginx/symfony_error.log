@@ -1,2 +1,0 @@
-2019/05/02 12:29:02 [error] 6#6: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.19.0.1, server: app.symfony.local, request: "GET / HTTP/1.1", upstream: "fastcgi://172.19.0.4:9001", host: "app.symfony.local:81"
-2019/05/02 12:29:02 [error] 6#6: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.19.0.1, server: app.symfony.local, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://172.19.0.4:9001", host: "app.symfony.local:81"
