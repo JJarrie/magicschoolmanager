@@ -1,0 +1,24 @@
+<nav class="navbar">
+
+    <div class="navbar-brand">
+        <a href="{{ path('app_homepage') }}" class="navbar-item">
+            LOGO
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            <a href="{{ path('app_homepage') }}" class="navbar-item">{{ 'Home'|trans }}</a>
+        </div>
+
+        <div class="navbar-end">
+            <a href="{{ path('app_logout') }}" class="navbar-item">{{ 'Logout'|trans }}</a>
+        </div>
+    </div>
+</nav>

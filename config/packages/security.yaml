@@ -1,0 +1,24 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: argon2i
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            logout:
+                path: app_logout
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }
