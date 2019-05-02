@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(newSchoolForm) }}
+    {{ form_row(newSchoolForm.name) }}
+
+    <button type="submit">{{ 'app.form.save'|trans }}</button>
+
+    {{ form_end(newSchoolForm) }}
+{% endblock %}

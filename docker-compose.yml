@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+    database:
+        image: postgres:11.4
+        volumes:
+            - ./data/db:/var/lib/postgresql/data
+
+    node:
+        build:
+            context: ./docker/node
+        volumes:
+            - ./:/var/app:rw
+        working_dir: /var/app

@@ -1,0 +1,128 @@
+<div class="card mt-1">
+    <div class="card-header h5">
+        <p class="float-left p-0 m-0">
+            <i class="fa fa-{{ (student.identity.gender~'_html')|trans([], 'gender')|raw }}"></i>
+            {{ student.identity.firstName }} {{ student.identity.lastName }}
+            ({{ student.identity.birthdayDate|date('d/m/Y') }})
+        </p>
+        <p class="float-right p-0 m-0">
+            {{ student.house|trans([], 'house') }}
+            Année {{ student.currentYear }}
+        </p>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">
+            {{ student.identity.ancestry.ancestry|trans([], 'ancestry') }}
+        </h4>
+        <div class="row">
+            {% include 'student/sheet_data.html.twig' with {
+                'label': 'student.ancestry.motherAncestry'|trans,
+                'value': student.identity.ancestry.motherAncestry.ancestry|trans([], 'ancestry')
+            } only %}
+            {% include 'student/sheet_data.html.twig' with {
+                'label': 'student.ancestry.fatherAncestry'|trans,
+                'value': student.identity.ancestry.fatherAncestry.ancestry|trans([], 'ancestry')
+            } only %}
+            {% include 'student/sheet_data.html.twig' with {
+                'label': 'student.ancestry.raisingWorld'|trans,
+                'value': student.identity.raisingWorld|trans([], 'raising_world')
+            } only %}
+        </div>
+
+        <h3 class="card-title">
+            {{ 'student.wand.title'|trans }}
+        </h3>
+
+        <div class="row">
+            {% include 'student/sheet_data.html.twig' with {
+                'label': 'student.wand.wood'|trans,
+                'value': student.wand.essenceWood|trans([], 'wand')
+            } only %}
+            {% include 'student/sheet_data.html.twig' with {
+                'label': 'student.wand.heart'|trans,
+                'value': student.wand.hearth|trans([], 'wand')
+            } only %}
+            {% include 'student/sheet_data.html.twig' with {
+                'label': 'student.wand.size'|trans,
+                'value': student.wand.size|trans([], 'wand')
+            } only %}
+        </div>
+
+        <h3 class="card-title">
+            {{ 'student.characteristics.title'|trans }}
+        </h3>
+
+        <div class="container">
+            <div class="row">
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.characteristics.body'|trans,
+                    'value': student.characteristics.body
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.characteristics.spirit'|trans,
+                    'value': student.characteristics.spirit
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.characteristics.heart'|trans,
+                    'value': student.characteristics.heart
+                } only %}
+            </div>
+        </div>
+
+        <h3 class="card-title">
+            {{ 'student.skills.title'|trans }}
+        </h3>
+        <div class="container">
+            <div class="row">
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.accuracy'|trans,
+                    'value': student.skills.accuracy
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.bluff'|trans,
+                    'value': student.skills.bluff
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.decorum'|trans,
+                    'value': student.skills.decorum
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.discretion'|trans,
+                    'value': student.skills.discretion
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.fight'|trans,
+                    'value': student.skills.fight
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.joke'|trans,
+                    'value': student.skills.joke
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.perception'|trans,
+                    'value': student.skills.perception
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.persuasion'|trans,
+                    'value': student.skills.persuasion
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.romance'|trans,
+                    'value': student.skills.romance
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.rumor'|trans,
+                    'value': student.skills.rumor
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.stamina'|trans,
+                    'value': student.skills.stamina
+                } only %}
+                {% include 'student/sheet_data.html.twig' with {
+                    'label': 'student.skills.tactical'|trans,
+                    'value': student.skills.tactical
+                } only %}
+            </div>
+        </div>
+    </div>
+</div>

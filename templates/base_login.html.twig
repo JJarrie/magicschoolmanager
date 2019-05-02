@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title '' %}</title>
+    {{ encore_entry_link_tags('css/app') }}
+</head>
+<body>
+
+<div class="container vh-100">
+    <div class="row align-items-center h-100">
+        <div class="col-5 mx-auto border rounded p-3">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+{{ encore_entry_script_tags('js/vendor') }}
+{{ encore_entry_script_tags('js/app') }}
+
+</body>
+</html>

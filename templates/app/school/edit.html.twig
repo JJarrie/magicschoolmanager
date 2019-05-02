@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(editCampaignForm) }}
+    {{ form_row(editCampaignForm.name) }}
+
+    <button type="submit">{{ 'app.form.save'|trans }}</button>
+
+    {{ form_end(editCampaignForm) }}
+{% endblock %}
+

@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+    database:
+        environment:
+            POSTGRES_PASSWORD: admin
+
+    node:
+        volumes:
+            - ~/.npm:/home/.npm
