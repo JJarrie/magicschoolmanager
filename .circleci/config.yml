@@ -27,4 +27,5 @@ jobs:
                   paths:
                       - node_modules
             - run: yarn build
+            - run: php bin/phpunit
             - run: vendor/bin/php-cs-fixer fix src/
