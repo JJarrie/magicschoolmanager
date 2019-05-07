@@ -38,6 +38,12 @@ migrate: ## Launch migration
 fixtures: ## Load datas into database
 	$(SYMFONY_CONSOLE) doctrine:fixtures:load
 
+vendor: composer.lock
+	$(COMPOSER) install
+
+composer.lock: composer.json
+	$(COMPOSER) update
+
 assets: node_modules ## Run encore to compile assets
 	$(YARN) dev
 
