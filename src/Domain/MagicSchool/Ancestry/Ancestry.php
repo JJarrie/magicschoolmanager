@@ -2,15 +2,13 @@
 
 namespace App\Domain\MagicSchool\Ancestry;
 
-use App\Domain\MagicSchool\BloodStatus;
-
 class Ancestry implements AncestryInterface
 {
     private $ancestry;
     private $motherAncestry;
     private $fatherAncestry;
 
-    public function __construct(string $ancestry = BloodStatus::UNKNOWN, ?AncestryInterface $motherAncestry = null, ?AncestryInterface $fatherAncestry = null)
+    public function __construct(string $ancestry, ?AncestryInterface $motherAncestry = null, ?AncestryInterface $fatherAncestry = null)
     {
         $this->ancestry = $ancestry;
         $this->motherAncestry = $motherAncestry;
