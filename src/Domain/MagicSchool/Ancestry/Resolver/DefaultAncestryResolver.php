@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Domain\Hogwart\Ancestry\Resolver;
+namespace App\Domain\MagicSchool\Ancestry\Resolver;
 
 use App\Domain\MagicSchool\Ancestry\AncestryInterface;
-use App\Domain\MagicSchool\Ancestry\Resolver\AncestryResolverInterface;
-use App\Domain\MagicSchool\BloodStatus;
+use App\Domain\MagicSchool\BloodStatusConstant;
 
-class HogwartAncestryResolver implements AncestryResolverInterface
+class DefaultAncestryResolver implements AncestryResolverInterface
 {
     public function resolve(AncestryInterface $motherAncestry, AncestryInterface $fatherAncestry): string
     {
@@ -18,29 +17,29 @@ class HogwartAncestryResolver implements AncestryResolverInterface
         }
 
         if ($this->parentsAncestriesAreInWizardCombination($motherAncestryValue, $fatherAncestryValue)) {
-            return BloodStatus::WIZARD;
+            return BloodStatusConstant::WIZARD;
         }
 
-        return BloodStatus::HALF_BLOOD;
+        return BloodStatusConstant::HALF_BLOOD;
     }
 
     private function getIfTwiceParentHaveSameAncestry(string $ancestryValue): string
     {
         switch ($ancestryValue) {
-            case BloodStatus::MUGGLE:
-                return BloodStatus::MUGGLE_BORN;
-            case BloodStatus::PURE_BLOOD:
-                return BloodStatus::PURE_BLOOD;
-            case BloodStatus::MUGGLE_BORN:
-            case BloodStatus::HALF_BLOOD:
-            case BloodStatus::WIZARD:
-                return BloodStatus::WIZARD;
+            case BloodStatusConstant::MUGGLE:
+                return BloodStatusConstant::MUGGLE_BORN;
+            case BloodStatusConstant::PURE_BLOOD:
+                return BloodStatusConstant::PURE_BLOOD;
+            case BloodStatusConstant::MUGGLE_BORN:
+            case BloodStatusConstant::HALF_BLOOD:
+            case BloodStatusConstant::WIZARD:
+                return BloodStatusConstant::WIZARD;
         }
     }
 
     private function parentsAncestriesAreInWizardCombination(string $motherAncestryValue, string $fatherAncestryValue): bool
     {
-        $wizardCombination = [BloodStatus::MUGGLE_BORN, BloodStatus::HALF_BLOOD, BloodStatus::WIZARD];
+        $wizardCombination = [BloodStatusConstant::MUGGLE_BORN, BloodStatusConstant::HALF_BLOOD, BloodStatusConstant::WIZARD];
 
         return in_array($motherAncestryValue, $wizardCombination) && in_array($fatherAncestryValue, $wizardCombination);
     }

@@ -2,7 +2,7 @@
 
 namespace App\Domain\MagicSchool;
 
-class BloodStatus
+class BloodStatusConstant
 {
     public const UNKNOWN = 'unknown';
     public const MUGGLE = 'muggle';

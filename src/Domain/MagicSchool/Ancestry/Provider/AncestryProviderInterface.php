@@ -2,9 +2,8 @@
 
 namespace App\Domain\MagicSchool\Ancestry\Provider;
 
-interface AncestryProviderInterface
-{
-    public function all(): \Traversable;
+use App\Domain\Provider\ProviderInterface;
 
-    public function random(): string;
+interface AncestryProviderInterface extends ProviderInterface
+{
 }

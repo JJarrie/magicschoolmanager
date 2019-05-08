@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Tests\Domain\Ancestry\Provider;
+namespace App\Tests\Domain\Hogwart\Ancestry\Provider;
 
-use App\Domain\Hogwart\Ancestry\Provider\HogwartStudentAncestryProvider;
-use App\Domain\MagicSchool\BloodStatus;
+use App\Domain\MagicSchool\Ancestry\Provider\DefaultStudentAncestryProvider;
+use App\Domain\MagicSchool\BloodStatusConstant;
 use PHPUnit\Framework\TestCase;
 
-class HogwartStudentAncestryProviderTest extends TestCase
+class DefaultStudentAncestryProviderTest extends TestCase
 {
-    /** @var HogwartStudentAncestryProvider */
+    /** @var DefaultStudentAncestryProvider */
     private $hogwartAncestryProvider;
 
     protected function setUp()
     {
-        $this->hogwartAncestryProvider = new HogwartStudentAncestryProvider();
+        $this->hogwartAncestryProvider = new DefaultStudentAncestryProvider();
     }
 
     public function testAllContainsMuggleBorn()
     {
         $this->assertContains(
-            BloodStatus::MUGGLE_BORN,
+            BloodStatusConstant::MUGGLE_BORN,
             $this->hogwartAncestryProvider->all()
         );
     }
@@ -27,7 +27,7 @@ class HogwartStudentAncestryProviderTest extends TestCase
     public function testAllContainsPureBlood()
     {
         $this->assertContains(
-            BloodStatus::PURE_BLOOD,
+            BloodStatusConstant::PURE_BLOOD,
             $this->hogwartAncestryProvider->all()
         );
     }
@@ -35,7 +35,7 @@ class HogwartStudentAncestryProviderTest extends TestCase
     public function testAllContainsHalfBlood()
     {
         $this->assertContains(
-            BloodStatus::HALF_BLOOD,
+            BloodStatusConstant::HALF_BLOOD,
             $this->hogwartAncestryProvider->all()
         );
     }
@@ -43,15 +43,7 @@ class HogwartStudentAncestryProviderTest extends TestCase
     public function testAllContainsWizard()
     {
         $this->assertContains(
-            BloodStatus::WIZARD,
-            $this->hogwartAncestryProvider->all()
-        );
-    }
-
-    public function testRandomGetValueInAll()
-    {
-        $this->assertContains(
-            $this->hogwartAncestryProvider->random(),
+            BloodStatusConstant::WIZARD,
             $this->hogwartAncestryProvider->all()
         );
     }
