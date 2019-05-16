@@ -14,12 +14,14 @@ class DateGenerator implements DateGeneratorInterface
     public function generate(): \DateTime
     {
         $timestamp = $this->intGenerator->generate();
+
         return $this->buildDateFromTimestamp($timestamp);
     }
 
     public function generateBetween(\DateTime $min, \DateTime $max): \DateTime
     {
         $timestamp = $this->intGenerator->generateBetween($min->getTimestamp(), $max->getTimestamp());
+
         return $this->buildDateFromTimestamp($timestamp);
     }
 

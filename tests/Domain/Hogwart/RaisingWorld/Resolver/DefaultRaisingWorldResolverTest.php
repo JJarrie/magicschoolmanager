@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultRaisingWorldResolverTest extends TestCase
 {
-
+    /** @var DefaultRaisingWorldResolver */
     private $raisingWorldResolver;
 
     protected function setUp()

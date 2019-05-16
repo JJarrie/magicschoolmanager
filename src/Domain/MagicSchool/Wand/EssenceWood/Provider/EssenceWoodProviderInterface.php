@@ -6,5 +6,4 @@ use App\Domain\Provider\ProviderInterface;
 
 interface EssenceWoodProviderInterface extends ProviderInterface
 {
-
 }
