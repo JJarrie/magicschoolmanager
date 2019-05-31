@@ -6,6 +6,9 @@ services:
         autowire: true
         autoconfigure: true
 
+        bind:
+            App\Domain\MagicSchool\Ancestry\Generator\AncestryGeneratorInterface $ancestryGenerator: '@default.ancestry_generator'
+
     App\:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
@@ -13,3 +16,6 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    default.ancestry_generator:
+        class: App\Domain\MagicSchool\Ancestry\Generator\DefaultAncestryGenerator

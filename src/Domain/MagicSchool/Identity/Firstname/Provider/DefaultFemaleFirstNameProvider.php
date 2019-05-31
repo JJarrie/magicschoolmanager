@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\MagicSchool\Identity\Provider;
+namespace App\Domain\MagicSchool\Identity\Firstname\Provider;
 
 class DefaultFemaleFirstNameProvider implements FirstNameProviderInterface
 {

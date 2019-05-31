@@ -24,8 +24,8 @@ class DefaultWandGenerator implements WandGeneratorInterface
     {
         return new Wand(
             $this->essenceWoodGenerator->generate(),
-            $this->wandHeartGenerator->generate(),
-            $this->wandSizeGenerator->generate()
+            $this->wandSizeGenerator->generate(),
+            $this->wandHeartGenerator->generate()
         );
     }
 }

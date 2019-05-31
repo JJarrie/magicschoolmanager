@@ -16,7 +16,7 @@ class InProviderGenerator implements GeneratorInterface
     public function generate()
     {
         $pool = $this->provider->all();
-        $key = array_rand(...$pool);
+        $key = array_rand(iterator_to_array($pool));
 
         return $pool[$key];
     }

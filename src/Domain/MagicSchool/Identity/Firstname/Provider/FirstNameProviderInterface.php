@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\MagicSchool\Identity\Provider;
+namespace App\Domain\MagicSchool\Identity\Firstname\Provider;
 
 use App\Domain\Provider\ProviderInterface;
 
