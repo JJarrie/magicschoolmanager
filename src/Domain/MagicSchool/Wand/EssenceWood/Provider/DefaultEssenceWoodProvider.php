@@ -6,9 +6,9 @@ use App\Domain\MagicSchool\EssenceWoodConstant;
 
 class DefaultEssenceWoodProvider implements EssenceWoodProviderInterface
 {
-    public function all(): \Traversable
+    public function all(): array
     {
-        return new \ArrayIterator([
+        return [
             EssenceWoodConstant::ACACIA,
             EssenceWoodConstant::MAHOGANY,
             EssenceWoodConstant::HAWTHORN,
@@ -45,6 +45,6 @@ class DefaultEssenceWoodProvider implements EssenceWoodProviderInterface
             EssenceWoodConstant::SILVER_LIME,
             EssenceWoodConstant::ASPEN,
             EssenceWoodConstant::VINE,
-        ]);
+        ];
     }
 }

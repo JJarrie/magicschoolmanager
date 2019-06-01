@@ -2,7 +2,7 @@
 
 namespace App\Domain\Generator;
 
-class IntGenerator implements GeneratorInterface
+class IntGenerator implements IntGeneratorInterface
 {
     public function generate(): int
     {

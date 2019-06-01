@@ -2,13 +2,22 @@
 
 namespace App\Domain\MagicSchool\Wand\WandSize\Generator;
 
-use App\Domain\Generator\InProviderGenerator;
+use App\Domain\Generator\ArrayGenerator;
 use App\Domain\MagicSchool\Wand\WandSize\Provider\WandSizeProviderInterface;
 
-class DefaultWandSizeGenerator extends InProviderGenerator implements WandSizeGeneratorInterface
+class DefaultWandSizeGenerator implements WandSizeGeneratorInterface
 {
-    public function __construct(WandSizeProviderInterface $provider)
+    private $arrayGenerator;
+    private $wandSizeProvider;
+
+    public function __construct(ArrayGenerator $arrayGenerator, WandSizeProviderInterface $wandSizeProvider)
     {
-        parent::__construct($provider);
+        $this->arrayGenerator = $arrayGenerator;
+        $this->wandSizeProvider = $wandSizeProvider;
+    }
+
+    public function generate(): int
+    {
+        return $this->arrayGenerator->generate($this->wandSizeProvider->all());
     }
 }

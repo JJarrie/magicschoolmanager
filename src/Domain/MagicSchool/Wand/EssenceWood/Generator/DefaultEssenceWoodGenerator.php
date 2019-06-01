@@ -2,18 +2,22 @@
 
 namespace App\Domain\MagicSchool\Wand\EssenceWood\Generator;
 
-use App\Domain\Generator\InProviderGenerator;
+use App\Domain\Generator\ArrayGenerator;
 use App\Domain\MagicSchool\Wand\EssenceWood\Provider\EssenceWoodProviderInterface;
 
-class DefaultEssenceWoodGenerator extends InProviderGenerator implements EssenceWoodGeneratorInterface
+class DefaultEssenceWoodGenerator implements EssenceWoodGeneratorInterface
 {
-    public function __construct(EssenceWoodProviderInterface $provider)
+    private $arrayGenerator;
+    private $essenceWoodProvider;
+
+    public function __construct(ArrayGenerator $arrayGenerator, EssenceWoodProviderInterface $essenceWoodProvider)
     {
-        parent::__construct($provider);
+        $this->arrayGenerator = $arrayGenerator;
+        $this->essenceWoodProvider = $essenceWoodProvider;
     }
 
     public function generate(): string
     {
-        return parent::generate();
+        return $this->arrayGenerator->generate($this->essenceWoodProvider->all());
     }
 }

@@ -6,4 +6,5 @@ use App\Domain\Generator\GeneratorInterface;
 
 interface WandHeartGeneratorInterface extends GeneratorInterface
 {
+    public function generate(): string;
 }

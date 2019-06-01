@@ -4,5 +4,5 @@ namespace App\Domain\Provider;
 
 interface ProviderInterface
 {
-    public function all(): \Traversable;
+    public function all(): array;
 }

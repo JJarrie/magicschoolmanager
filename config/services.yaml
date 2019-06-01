@@ -7,7 +7,8 @@ services:
         autoconfigure: true
 
         bind:
-            App\Domain\MagicSchool\Ancestry\Generator\AncestryGeneratorInterface $ancestryGenerator: '@default.ancestry_generator'
+            App\Domain\MagicSchool\Identity\Ancestry\Generator\AncestryGeneratorInterface $ancestryGenerator: '@default.ancestry_generator'
+            App\Domain\MagicSchool\Identity\Lastname\Provider\LastNameProviderInterface: '@default.lastname_provider'
 
     App\:
         resource: '../src/*'
@@ -18,4 +19,7 @@ services:
         tags: ['controller.service_arguments']
 
     default.ancestry_generator:
-        class: App\Domain\MagicSchool\Ancestry\Generator\DefaultAncestryGenerator
+        class: App\Domain\MagicSchool\Identity\Ancestry\Generator\DefaultAncestryGenerator
+
+    default.lastname_provider:
+        class: App\Domain\MagicSchool\Identity\Lastname\Provider\DefaultLastnameProvider

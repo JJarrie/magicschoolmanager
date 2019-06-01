@@ -6,12 +6,12 @@ use App\Domain\MagicSchool\WandHeartConstant;
 
 class DefaultWandHeartProvider implements WandHeartProviderInterface
 {
-    public function all(): \Traversable
+    public function all(): array
     {
-        return new \ArrayIterator([
+        return [
             WandHeartConstant::UNICORN_HAIR,
             WandHeartConstant::PHOENIX_FEATHER,
             WandHeartConstant::DRAGON_VENTRICLE,
-        ]);
+        ];
     }
 }

@@ -4,8 +4,8 @@ namespace App\Domain\MagicSchool\Wand\WandSize\Provider;
 
 class DefaultWandSizeProvider implements WandSizeProviderInterface
 {
-    public function all(): \Traversable
+    public function all(): array
     {
-        return new \ArrayIterator(range(22, 36));
+        return range(22, 36);
     }
 }

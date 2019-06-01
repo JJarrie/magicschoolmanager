@@ -2,13 +2,22 @@
 
 namespace App\Domain\MagicSchool\Wand\WandHeart\Generator;
 
-use App\Domain\Generator\InProviderGenerator;
+use App\Domain\Generator\ArrayGenerator;
 use App\Domain\MagicSchool\Wand\WandHeart\Provider\WandHeartProviderInterface;
 
-class DefaultWandHeartGenerator extends InProviderGenerator implements WandHeartGeneratorInterface
+class DefaultWandHeartGenerator implements WandHeartGeneratorInterface
 {
-    public function __construct(WandHeartProviderInterface $provider)
+    private $arrayGenerator;
+    private $wandHeartProvider;
+
+    public function __construct(ArrayGenerator $arrayGenerator, WandHeartProviderInterface $wandHeartProvider)
     {
-        parent::__construct($provider);
+        $this->arrayGenerator = $arrayGenerator;
+        $this->wandHeartProvider = $wandHeartProvider;
+    }
+
+    public function generate(): string
+    {
+        return $this->arrayGenerator->generate($this->wandHeartProvider->all());
     }
 }
