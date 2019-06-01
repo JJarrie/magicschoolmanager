@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Domain\Generator\IntGeneratorInterface;
+use App\Domain\MagicSchool\Characteristics\Generator\CharacteristicsGeneratorInterface;
 use App\Domain\MagicSchool\Date\DateRuleResolver;
 use App\Domain\MagicSchool\Identity\Ancestry\Generator\AncestryGeneratorInterface;
 use App\Domain\MagicSchool\Identity\Firstname\Generator\FirstnameGeneratorInterface;
@@ -153,9 +155,32 @@ class GeneratorController extends AbstractController
                     'father_ancestry' => $translator->trans($student->getIdentity()->getAncestry()->getFatherAncestry()->getAncestry(), [], 'ancestry', 'fr'),
                     'raising_world' => $translator->trans($student->getIdentity()->getRaisingWorld(), [], 'raising_world', 'fr'),
                 ],
-                'house' => $student->getHouse(),
+                'characteristics' => [
+                    'body' => $student->getCharacteristics()->getBody(),
+                    'heart' => $student->getCharacteristics()->getHeart(),
+                    'spirit' => $student->getCharacteristics()->getSpirit(),
+                    'magic' => $student->getCharacteristics()->getMagic(),
+                ],
+                'house' => $translator->trans($student->getHouse(), [], 'house', 'fr'),
                 'currentYear' => $student->getCurrentYear(),
             ]
         );
+    }
+
+    /**
+     * @Route("/generator/characteristics", name="app_generator_characteristics")
+     */
+    public function characteristics(CharacteristicsGeneratorInterface $characteristicsGenerator, IntGeneratorInterface $intGenerator): JsonResponse
+    {
+        $year = $intGenerator->generateBetween(1, 7);
+        $characteristics = $characteristicsGenerator->generate($year);
+
+        return new JsonResponse([
+            'year' => $year,
+            'body' => $characteristics->getBody(),
+            'heart' => $characteristics->getHeart(),
+            'spirit' => $characteristics->getSpirit(),
+            'magic' => $characteristics->getMagic(),
+        ]);
     }
 }
