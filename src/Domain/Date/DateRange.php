@@ -22,6 +22,4 @@ class DateRange
     {
         return $this->to;
     }
-
-
 }

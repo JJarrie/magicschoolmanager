@@ -15,7 +15,6 @@ use App\Domain\MagicSchool\MagicSchoolState;
 
 class DefaultIdentityGenerator implements IdentityGeneratorInterface
 {
-
     private $genderGenerator;
     private $firstnameGenerator;
     private $lastnameGenerator;

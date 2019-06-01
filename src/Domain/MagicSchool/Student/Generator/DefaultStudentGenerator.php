@@ -26,6 +26,7 @@ class DefaultStudentGenerator implements StudentGeneratorInterface
     {
         $currentYear = $this->intGenerator->generateBetween(1, $schoolConfiguration->getNbStudyingYear());
         $identity = $this->identityGenerator->generate($schoolConfiguration, $schoolState, $currentYear);
+
         return new Student(
             $identity,
             $currentYear,

@@ -124,6 +124,7 @@ class GeneratorController extends AbstractController
     public function house(HouseGeneratorInterface $houseGenerator, AncestryGeneratorInterface $ancestryGenerator, TranslatorInterface $translator): JsonResponse
     {
         $ancestry = $ancestryGenerator->generate();
+
         return new JsonResponse([
             'ancestry' => $translator->trans($ancestry->getAncestry(), [], 'ancestry', 'fr'),
             'house' => $translator->trans($houseGenerator->generate($ancestry), [], 'house', 'fr'),

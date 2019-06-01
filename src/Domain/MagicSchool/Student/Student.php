@@ -31,5 +31,4 @@ class Student
     {
         return $this->house;
     }
-
 }

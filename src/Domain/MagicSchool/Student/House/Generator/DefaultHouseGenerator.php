@@ -18,7 +18,6 @@ class DefaultHouseGenerator implements HouseGeneratorInterface
         $this->houseProvider = $houseProvider;
     }
 
-
     public function generate(Ancestry $ancestry): string
     {
         $pool = $this->houseProvider->all();
@@ -29,5 +28,4 @@ class DefaultHouseGenerator implements HouseGeneratorInterface
 
         return $this->arrayGenerator->generate($pool);
     }
-
 }
