@@ -13,6 +13,7 @@ use App\Domain\MagicSchool\Identity\Lastname\Generator\LastnameGeneratorInterfac
 use App\Domain\MagicSchool\Identity\RaisingWorld\Generator\RaisingWorldGeneratorInterface;
 use App\Domain\MagicSchool\MagicSchoolConfiguration;
 use App\Domain\MagicSchool\MagicSchoolState;
+use App\Domain\MagicSchool\Skills\Generator\SkillGeneratorInterface;
 use App\Domain\MagicSchool\Student\Generator\StudentGeneratorInterface;
 use App\Domain\MagicSchool\Student\House\Generator\HouseGeneratorInterface;
 use App\Domain\MagicSchool\Wand\Generator\WandGeneratorInterface;
@@ -155,11 +156,30 @@ class GeneratorController extends AbstractController
                     'father_ancestry' => $translator->trans($student->getIdentity()->getAncestry()->getFatherAncestry()->getAncestry(), [], 'ancestry', 'fr'),
                     'raising_world' => $translator->trans($student->getIdentity()->getRaisingWorld(), [], 'raising_world', 'fr'),
                 ],
+                'wand' => [
+                    'wood' => $translator->trans($student->getWand()->getEssenceWood(), [], 'wand', 'fr'),
+                    'heart' => $translator->trans($student->getWand()->getHearth(), [], 'wand', 'fr'),
+                    'size' => $student->getWand()->getSize(),
+                ],
                 'characteristics' => [
                     'body' => $student->getCharacteristics()->getBody(),
                     'heart' => $student->getCharacteristics()->getHeart(),
                     'spirit' => $student->getCharacteristics()->getSpirit(),
                     'magic' => $student->getCharacteristics()->getMagic(),
+                ],
+                'skills' => [
+                    'accuracy' => $student->getSkills()->getAccuracy(),
+                    'bluff' => $student->getSkills()->getBluff(),
+                    'decorum' => $student->getSkills()->getDecorum(),
+                    'discretion' => $student->getSkills()->getDiscretion(),
+                    'fight' => $student->getSkills()->getFight(),
+                    'joke' => $student->getSkills()->getJoke(),
+                    'perception' => $student->getSkills()->getPerception(),
+                    'persuasion' => $student->getSkills()->getPersuasion(),
+                    'romance' => $student->getSkills()->getRomance(),
+                    'rumor' => $student->getSkills()->getRumor(),
+                    'stamina' => $student->getSkills()->getStamina(),
+                    'tactical' => $student->getSkills()->getTactical(),
                 ],
                 'house' => $translator->trans($student->getHouse(), [], 'house', 'fr'),
                 'currentYear' => $student->getCurrentYear(),
@@ -181,6 +201,41 @@ class GeneratorController extends AbstractController
             'heart' => $characteristics->getHeart(),
             'spirit' => $characteristics->getSpirit(),
             'magic' => $characteristics->getMagic(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/generator/skills", name="app_generator_skills")
+     */
+    public function skills(IntGeneratorInterface $intGenerator, CharacteristicsGeneratorInterface $characteristicsGenerator, SkillGeneratorInterface $skillGenerator): JsonResponse
+    {
+        $year = $intGenerator->generateBetween(1, 7);
+        $characteristics = $characteristicsGenerator->generate($year);
+        $skills = $skillGenerator->generate($characteristics);
+
+        return new JsonResponse([
+            'year' => $year,
+            'characteristics' => [
+                'body' => $characteristics->getBody(),
+                'heart' => $characteristics->getHeart(),
+                'spirit' => $characteristics->getSpirit(),
+                'magic' => $characteristics->getMagic(),
+            ],
+            'skills' => [
+                'accuracy' => $skills->getAccuracy(),
+                'bluff' => $skills->getBluff(),
+                'decorum' => $skills->getDecorum(),
+                'discretion' => $skills->getDiscretion(),
+                'fight' => $skills->getFight(),
+                'joke' => $skills->getJoke(),
+                'perception' => $skills->getPerception(),
+                'persuasion' => $skills->getPersuasion(),
+                'romance' => $skills->getRomance(),
+                'rumor' => $skills->getRumor(),
+                'stamina' => $skills->getStamina(),
+                'tactical' => $skills->getTactical(),
+            ],
         ]);
     }
 }

@@ -1,0 +1,41 @@
+student:
+    identity:
+        title: Identitée
+        firstname: Prénom
+        lastname: Nom
+        birthday: Date de naissance
+        gender: Genre
+    ancestry:
+        title: Origine
+        ancestry: Sang
+        motherAncestry: Sang de la mère
+        fatherAncestry: Sang du père
+        raisingWorld: Monde d'origine
+    wand:
+        title: Baguette
+        wood: Bois
+        heart: Composant
+        size: Taille
+    characteristics:
+        title: Caractéristiques
+        body: Corps
+        spirit: Esprit
+        heart: Coeur
+    skills:
+        title: Capacitée
+        accuracy: Précision
+        bluff: Bluff
+        decorum: Decorum
+        discretion: Discrétion
+        fight: Bagarre
+        joke: Farce
+        perception: Perception
+        persuasion: Persuasion
+        romance: Romance
+        rumor: Rumeur
+        stamina: Endurance
+        tactical: Tactique
+    scholar:
+        title: Scolarité
+        house: Maison
+        currentYear: Année

@@ -1,0 +1,266 @@
+<div class="columns is-multiline">
+    <div class="column is-flex">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    {{ 'student.identity.title'|trans }}
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <div class="columns is-multiline">
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.identity.firstname'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.identity.firstName }}
+                            </p>
+                        </div>
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.identity.lastname'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.identity.lastName }}
+                            </p>
+                        </div>
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.identity.birthday'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.identity.birthdayDate|date('d/m/Y') }}
+                            </p>
+                        </div>
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.identity.gender'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.identity.gender|trans([], 'gender') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="column is-flex">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    {{ 'student.ancestry.title'|trans }}
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <div class="columns is-multiline">
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.ancestry.ancestry'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.identity.ancestry.ancestry|trans([], 'ancestry') }}
+                            </p>
+                        </div>
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.ancestry.motherAncestry'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.identity.ancestry.motherAncestry.ancestry|trans([], 'ancestry') }}
+                            </p>
+                        </div>
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.ancestry.fatherAncestry'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.identity.ancestry.fatherAncestry.ancestry|trans([], 'ancestry') }}
+                            </p>
+                        </div>
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.ancestry.raisingWorld'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.identity.raisingWorld|trans([], 'raising_world') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="column is-flex">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    {{ 'student.wand.title'|trans }}
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <div class="columns is-multiline">
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.wand.wood'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.wand.essenceWood|trans([], 'wand') }}
+                            </p>
+                        </div>
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.wand.heart'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.wand.hearth|trans([], 'wand') }}
+                            </p>
+                        </div>
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">
+                                {{ 'student.wand.size'|trans }}
+                            </p>
+                            <p class="has-text-weight-bold">
+                                {{ student.wand.size|trans([], 'wand') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="column is-flex">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    {{ 'student.scholar.title'|trans }}
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <div class="columns is-multiline">
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">{{ 'student.scholar.house'|trans }}</p>
+                            <p class="has-text-weight-bold">{{ student.house|trans([], 'house') }}</p>
+                        </div>
+
+                        <div class="has-text-centered column is-full">
+                            <p class="heading">{{ 'student.scholar.currentYear'|trans }}</p>
+                            <p class="has-text-weight-bold">{{ student.currentYear }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="column is-flex">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    {{ 'student.characteristics.title'|trans }}
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <div class="columns is-multiline">
+                        <div class="has-text-centered column is-half">
+                            <p class="heading">{{ 'student.characteristics.body'|trans }}</p>
+                            <p class="has-text-weight-bold">{{ student.characteristics.body }}</p>
+                        </div>
+                        <div class="has-text-centered column is-half">
+                            <p class="heading">{{ 'student.characteristics.spirit'|trans }}</p>
+                            <p class="has-text-weight-bold">{{ student.characteristics.spirit }}</p>
+                        </div>
+                        <div class="has-text-centered column is-half">
+                            <p class="heading">{{ 'student.characteristics.heart'|trans }}</p>
+                            <p class="has-text-weight-bold">{{ student.characteristics.heart }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="column is-flex">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    {{ 'student.skills.title'|trans }}
+                </p>
+            </header>
+            <div class="card-content">
+
+                <div class="columns is-multiline">
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.accuracy'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.accuracy }}</p>
+                    </div>
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.bluff'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.bluff }}</p>
+                    </div>
+
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.decorum'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.decorum }}</p>
+                    </div>
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.discretion'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.discretion }}</p>
+                    </div>
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.fight'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.fight }}</p>
+                    </div>
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.joke'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.joke }}</p>
+                    </div>
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.perception'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.perception }}</p>
+                    </div>
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.persuasion'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.persuasion }}</p>
+                    </div>
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.romance'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.romance }}</p>
+                    </div>
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.rumor'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.rumor }}</p>
+                    </div>
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.stamina'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.stamina }}</p>
+                    </div>
+
+                    <div class="has-text-centered column is-half">
+                        <p class="heading">{{ 'student.skills.tactical'|trans }}</p>
+                        <p class="has-text-weight-bold">{{ student.skills.tactical }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

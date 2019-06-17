@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for student in students %}
+        {% include 'student/sheet.html.twig' with {'student': student} only %}
+    {% endfor %}
+{% endblock %}
