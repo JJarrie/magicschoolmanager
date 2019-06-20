@@ -5,15 +5,15 @@ namespace App\Domain\MagicSchool;
 class MagicSchoolConfiguration
 {
     private $calendarYearStart;
-    private $firstYearOld;
+    private $firstYearAge;
     private $nbStudyingYear;
     private $backToSchoolDay;
     private $backToSchoolMonth;
 
-    public function __construct(int $calendarYearStart, int $firstYearOld, int $nbStudyingYear, int $backToSchoolDay, int $backToSchoolMonth)
+    public function __construct(int $calendarYearStart, int $firstYearAge, int $nbStudyingYear, int $backToSchoolDay, int $backToSchoolMonth)
     {
         $this->calendarYearStart = $calendarYearStart;
-        $this->firstYearOld = $firstYearOld;
+        $this->firstYearAge = $firstYearAge;
         $this->nbStudyingYear = $nbStudyingYear;
         $this->backToSchoolDay = $backToSchoolDay;
         $this->backToSchoolMonth = $backToSchoolMonth;
@@ -24,9 +24,9 @@ class MagicSchoolConfiguration
         return $this->calendarYearStart;
     }
 
-    public function getFirstYearOld(): int
+    public function getFirstYearAge(): int
     {
-        return $this->firstYearOld;
+        return $this->firstYearAge;
     }
 
     public function getNbStudyingYear(): int

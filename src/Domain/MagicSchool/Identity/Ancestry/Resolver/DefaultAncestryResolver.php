@@ -35,6 +35,8 @@ class DefaultAncestryResolver implements AncestryResolverInterface
             case BloodStatusConstant::WIZARD:
                 return BloodStatusConstant::WIZARD;
         }
+
+        throw new \LogicException('Unreachable');
     }
 
     private function parentsAncestriesAreInWizardCombination(string $motherAncestryValue, string $fatherAncestryValue): bool

@@ -1,10 +1,10 @@
 #!/bin/sh
 
-uid=$(stat -c %u /srv)
-gid=$(stat -c %g /srv)
+uid=$(stat -c %u /var/app)
+gid=$(stat -c %g /var/app)
 
-if [[ ${uid} == 0 ]] && [[ ${gid} == 0 ]]; then
-    if [[ ${#} -eq 0 ]]; then
+if [[ "$uid" -eq 0 ]] && [[ "$gid" -eq 0 ]]; then
+    if [[ $# -eq 0 ]]; then
         php-fpm --allow-to-run-as-root
     else
         echo "$@"
@@ -19,7 +19,8 @@ sed -i "s/user = www-data/user = foo/g" /usr/local/etc/php-fpm.d/www.conf
 sed -i "s/group = www-data/group = bar/g" /usr/local/etc/php-fpm.d/www.conf
 
 user=$(grep ":x:$uid:" /etc/passwd | cut -d: -f1)
-if [[ ${#} -eq 0 ]]; then
+
+if [[ $# -eq 0 ]]; then
     php-fpm
 else
     echo gosu ${user} "$@"

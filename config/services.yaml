@@ -18,6 +18,9 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    App\Event\Doctrine\OwnableEntitySuscriber:
+        tags: ['doctrine.event_subscriber']
+
     default.ancestry_generator:
         class: App\Domain\MagicSchool\Identity\Ancestry\Generator\DefaultAncestryGenerator
 

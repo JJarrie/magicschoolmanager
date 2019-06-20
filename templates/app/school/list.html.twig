@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ 'app.school.list.title'|trans }}</h1>
+
+    <a href="{{ path('app_school_create') }}">{{ 'app.school.actions.create'|trans }}</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>{{ 'app.school.list.header.name'|trans }}</th>
+            <th>{{ 'app.school.list.header.actions'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for school in schools %}
+            <tr>
+                <td>{{ school.uuid }}</td>
+                <td>{{ school.name }}</td>
+                <td>
+                    <a href="{{ path('app_school_edit', { 'uuid': school.uuid }) }}">{{ 'app.school.actions.edit'|trans }}</a>
+                    <a href="#">{{ 'app.school.actions.show'|trans }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

@@ -17,6 +17,7 @@ use App\Domain\MagicSchool\Skills\Generator\SkillGeneratorInterface;
 use App\Domain\MagicSchool\Student\Generator\StudentGeneratorInterface;
 use App\Domain\MagicSchool\Student\House\Generator\HouseGeneratorInterface;
 use App\Domain\MagicSchool\Wand\Generator\WandGeneratorInterface;
+use IntlDateFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -111,7 +112,7 @@ class GeneratorController extends AbstractController
         return new JsonResponse([
             'firstname' => $identity->getFirstName(),
             'lastname' => $identity->getLastName(),
-            'birthday_date' => \IntlDateFormatter::formatObject($birthdayDate, \IntlDateFormatter::SHORT, 'fr'),
+            'birthday_date' => IntlDateFormatter::formatObject($birthdayDate, IntlDateFormatter::SHORT, 'fr'),
             'age' => $dateRuleResolver->age($birthdayDate, $magicSchoolConfiguration, $magicScoolState),
             'gender' => $translator->trans($identity->getGender(), [], 'gender', 'fr'),
             'ancestry' => $translator->trans($identity->getAncestry()->getAncestry(), [], 'ancestry', 'fr'),
@@ -148,7 +149,7 @@ class GeneratorController extends AbstractController
                 'identity' => [
                     'firstname' => $student->getIdentity()->getFirstName(),
                     'lastname' => $student->getIdentity()->getLastName(),
-                    'birthday_date' => \IntlDateFormatter::formatObject($student->getIdentity()->getBirthdayDate(), \IntlDateFormatter::SHORT, 'fr'),
+                    'birthday_date' => IntlDateFormatter::formatObject($student->getIdentity()->getBirthdayDate(), IntlDateFormatter::SHORT, 'fr'),
                     'age' => $dateRuleResolver->age($student->getIdentity()->getBirthdayDate(), $magicSchoolConfiguration, $magicScoolState),
                     'gender' => $translator->trans($student->getIdentity()->getGender(), [], 'gender', 'fr'),
                     'ancestry' => $translator->trans($student->getIdentity()->getAncestry()->getAncestry(), [], 'ancestry', 'fr'),

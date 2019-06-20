@@ -2,9 +2,6 @@
 
 namespace App\Domain\MagicSchool\Skills;
 
-use App\Domain\CharacteristicsConstant;
-use App\Domain\SkillConstant;
-
 class Skills
 {
     private $bluff;

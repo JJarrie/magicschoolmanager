@@ -1,30 +1,26 @@
-FROM composer
-FROM php:7.3.5-fpm-alpine
+FROM php:fpm-alpine
 
-COPY --from=composer /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ENV APCU_VERSION 5.1.17
 
+RUN apk add --no-cache --virtual .global ca-certificates git \
+    && apk add --no-cache --virtual .zip-deps unzip libzip-dev zlib-dev \
+    && apk add --no-cache --virtual .intl-deps icu-libs icu-dev \
+    && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
 
-RUN apk add --no-cache \
-        ca-certificates \
-        icu-libs \
-        git \
-        unzip \
-        libzip-dev \
-        zlib-dev && \
-    apk add --no-cache --virtual .build-deps \
-        $PHPIZE_DEPS \
-        icu-dev && \
-    docker-php-ext-install \
-        intl \
-        zip && \
-    pecl install apcu-${APCU_VERSION} && \
-    docker-php-ext-enable apcu && \
-    docker-php-ext-enable opcache && \
-    docker-php-ext-install pdo_mysql && \
-    apk del .build-deps && \
-    apk add gosu --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted && \
+RUN pecl install ast
+RUN docker-php-ext-enable ast
+
+RUN docker-php-ext-install intl zip \
+    && pecl install apcu-${APCU_VERSION}
+
+RUN apk del .build-deps
+
+RUN docker-php-ext-enable apcu opcache
+RUN docker-php-ext-install pdo_mysql
+
+RUN apk add gosu --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted && \
     addgroup bar && \
     adduser -D -h /home -s /bin/sh -G bar foo
 

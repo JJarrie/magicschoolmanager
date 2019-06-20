@@ -39,3 +39,18 @@ student:
         title: Scolarité
         house: Maison
         currentYear: Année
+
+app:
+    form:
+        save: Sauvegarder
+    school:
+        list:
+            title: Liste de vos écoles
+            header:
+                name: Nom
+                actions: Actions
+        actions:
+            create: Créer une nouvelle école
+            edit: Modifier
+            show: Voir
+

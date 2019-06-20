@@ -5,11 +5,18 @@ SYMFONY_CONSOLE=$(PHP_EXEC) bin/console
 COMPOSER=$(PHP_EXEC) composer
 YARN=$(JS_EXEC) yarn
 
-.DEFAULT_GOAL := help build start stop
+.DEFAULT_GOAL := help
 .PHONY: help build start stop cache-clear csfix db make-migrate migrate fixtures
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+install: build start vendor assets ## Install project
+
+kill: db-drop ## Properly remove container
+	$(PHP_EXEC) rm -rf vendor/
+	$(JS_EXEC) rm -rf node_modules/
+	$(DOCKER_COMPOSE) down --remove-orphans --volumes
 
 build: ## Build docker stack
 	$(DOCKER_COMPOSE) build
@@ -28,6 +35,9 @@ csfix: ## Format code
 
 db: ## Create database
 	$(SYMFONY_CONSOLE) doctrine:database:create
+
+db-drop: ## Remove database
+	$(SYMFONY_CONSOLE) doctrine:database:drop --force
 
 make-migrate: ## Prepare migration
 	$(SYMFONY_CONSOLE) make:migration
@@ -55,3 +65,6 @@ node_modules: yarn.lock ## Install encore dependencies
 
 yarn.lock: package.json ## Generate yarn.lock
 	$(YARN) upgrade
+
+phan:
+	$(TOOLS_EXEC) vendor/bin/phan

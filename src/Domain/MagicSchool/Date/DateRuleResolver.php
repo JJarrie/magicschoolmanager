@@ -9,7 +9,7 @@ class DateRuleResolver
 {
     public function greatestBirthYearForStudent(MagicSchoolConfiguration $schoolConfiguration, MagicSchoolState $schoolState): int
     {
-        return ($schoolConfiguration->getCalendarYearStart() + $schoolState->getCurrentYear() - 1) - $schoolConfiguration->getFirstYearOld();
+        return ($schoolConfiguration->getCalendarYearStart() + $schoolState->getCurrentYear() - 1) - $schoolConfiguration->getFirstYearAge();
     }
 
     public function lowestYearBirthForStudent(MagicSchoolConfiguration $schoolConfiguration, MagicSchoolState $schoolState): int
