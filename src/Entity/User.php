@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Traits\EntityIdTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -31,16 +33,17 @@ class User implements UserInterface
      */
     private $password;
 
+    public function __construct(string $username, array $roles, ?string $password = null)
+    {
+        $this->id = Uuid::uuid4();
+        $this->username = $username;
+        $this->roles = $roles;
+        $this->password = $password;
+    }
+
     public function getUsername(): string
     {
         return (string) $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function getRoles(): array
@@ -51,23 +54,9 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
     public function getPassword(): string
     {
         return (string) $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
     }
 
     public function getSalt()

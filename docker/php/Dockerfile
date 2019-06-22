@@ -1,13 +1,16 @@
-FROM php:fpm-alpine
+FROM php:rc-fpm-alpine
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ENV APCU_VERSION 5.1.17
 
-RUN apk add --no-cache --virtual .global ca-certificates git \
+RUN apk add --no-cache --virtual .global ca-certificates git wget \
     && apk add --no-cache --virtual .zip-deps unzip libzip-dev zlib-dev \
     && apk add --no-cache --virtual .intl-deps icu-libs icu-dev \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
+
+RUN wget http://pear.php.net/go-pear.phar
+RUN php go-pear.phar
 
 RUN pecl install ast
 RUN docker-php-ext-enable ast

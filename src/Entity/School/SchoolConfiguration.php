@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\School;
 
 use App\Entity\Traits\EntityIdTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity
- */
 class SchoolConfiguration
 {
     use EntityIdTrait;
@@ -97,12 +94,12 @@ class SchoolConfiguration
         $this->backToSchoolMonth = $backToSchoolMonth;
     }
 
-    public function getSchool(): ?School
+    public function getSchool(): ?SchoolEntity
     {
         return $this->school;
     }
 
-    public function setSchool(School $school): void
+    public function setSchool(SchoolEntity $school): void
     {
         $this->school = $school;
     }

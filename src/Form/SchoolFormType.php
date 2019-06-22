@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\School;
+use App\Domain\MagicSchool\School\School;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,6 +19,4 @@ class SchoolFormType extends AbstractType
     {
         $resolver->setDefaults(['data_class' => School::class]);
     }
-
-
 }
