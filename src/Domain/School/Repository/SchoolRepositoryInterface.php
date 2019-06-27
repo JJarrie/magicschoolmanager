@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\MagicSchool\School\Repository;
+namespace App\Domain\School\Repository;
 
-use App\Domain\MagicSchool\School\School;
+use App\Domain\School\School;
 
 interface SchoolRepositoryInterface
 {

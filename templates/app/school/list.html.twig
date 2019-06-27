@@ -16,12 +16,12 @@
         <tbody>
         {% for school in schools %}
             <tr>
-                <td>{{ school.uuid }}</td>
+                <td>{{ school.id }}</td>
                 <td>{{ school.name }}</td>
                 <td>
-                    <a href="{{ path('app_school_edit', { 'uuid': school.uuid }) }}">{{ 'app.school.actions.edit'|trans }}</a>
+                    {#<a href="{{ path('app_school_edit', { 'id': school.id }) }}">{{ 'app.school.actions.edit'|trans }}</a>
                     <a href="#">{{ 'app.school.actions.show'|trans }}</a>
-                </td>
+                #}</td>
             </tr>
         {% endfor %}
         </tbody>

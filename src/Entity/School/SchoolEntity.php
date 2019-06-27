@@ -3,9 +3,9 @@
 namespace App\Entity\School;
 
 use App\Entity\Traits\EntityIdTrait;
-use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,11 +23,11 @@ class SchoolEntity
     private string $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
-    private User $owner;
+    private UserInterface $owner;
 
-    public function __construct(UuidInterface $id, string $name, User $owner)
+    public function __construct(UuidInterface $id, string $name, UserInterface $owner)
     {
         $this->id = $id;
         $this->name = $name;
@@ -39,7 +39,7 @@ class SchoolEntity
         return $this->name;
     }
 
-    public function getOwner(): ?User
+    public function getOwner(): ?UserInterface
     {
         return $this->owner;
     }

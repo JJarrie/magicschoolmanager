@@ -2,9 +2,9 @@
 
 namespace App\Controller\School;
 
-use App\Adapter\User\DoctrineEntityUser;
-use App\Domain\MagicSchool\School\Repository\SchoolRepositoryInterface;
-use App\Domain\MagicSchool\School\School;
+use App\Domain\School\Repository\SchoolRepositoryInterface;
+use App\Domain\School\School;
+use App\Domain\School\SchoolFactory;
 use App\Form\SchoolFormType;
 use App\Repository\SchoolRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,13 +27,13 @@ class SchoolController extends AbstractController
     /**
      * @Route("/schools/create", name="app_school_create", methods={"GET", "POST"})
      */
-    public function create(Request $request, SchoolRepositoryInterface $schoolRepository): Response
+    public function create(Request $request, SchoolFactory $schoolFactory, SchoolRepositoryInterface $schoolRepository): Response
     {
-        $newSchool = new School();
-        $newSchoolForm = $this->createForm(SchoolFormType::class, $newSchool);
+        $newSchoolForm = $this->createForm(SchoolFormType::class);
         $newSchoolForm->handleRequest($request);
 
         if ($newSchoolForm->isSubmitted() && $newSchoolForm->isValid()) {
+            $newSchool = $schoolFactory->fromArray($newSchoolForm->getData());
             $schoolRepository->save($newSchool);
 
             return $this->redirectToRoute('app_school_list');

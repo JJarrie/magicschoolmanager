@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\School;
+use App\Entity\School\SchoolEntity;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method School findOneBy(array $criteria, array $orderBy = null)
+ * @method SchoolEntity findOneBy(array $criteria, array $orderBy = null)
  */
 class SchoolRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, School::class);
+        parent::__construct($registry, SchoolEntity::class);
     }
 
-    public function listByUser(User $user): array
+    public function listByUser(User $owner): array
     {
         return $this->createQueryBuilder('c')
-                    ->where('c.user = :user')
-                    ->setParameter('user', $user)
+                    ->where('c.owner = :owner')
+                    ->setParameter('owner', $owner)
                     ->getQuery()
                     ->getResult()
             ;

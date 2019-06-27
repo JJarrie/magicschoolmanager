@@ -2,8 +2,8 @@
 
 namespace App\Adapter\School\Repository;
 
-use App\Domain\MagicSchool\School\Repository\SchoolRepositoryInterface;
-use App\Domain\MagicSchool\School\School;
+use App\Domain\School\Repository\SchoolRepositoryInterface;
+use App\Domain\School\School;
 
 class InMemorySchoolRepository implements SchoolRepositoryInterface
 {
@@ -16,6 +16,6 @@ class InMemorySchoolRepository implements SchoolRepositoryInterface
 
     public function save(School $school): void
     {
-        $this->innerRepository[$school->getId()->toString()] = $school;
+        $this->innerRepository[$school->getName()] = $school;
     }
 }

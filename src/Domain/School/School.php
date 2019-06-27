@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domain\MagicSchool\School;
+namespace App\Domain\School;
 
 class School
 {
-    public ?string $name;
+    private ?string $name;
 
     public function __construct(?string $name = null)
     {
