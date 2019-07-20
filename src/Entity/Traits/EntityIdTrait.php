@@ -12,7 +12,7 @@ trait EntityIdTrait
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
      */
-    private ?UuidInterface $id;
+    private $id;
 
     public function getId(): ?UuidInterface
     {

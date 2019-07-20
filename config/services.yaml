@@ -18,6 +18,9 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    doctrine.orm.quote_strategy.escaping:
+        class: PSCS\Doctrine\ORM\Mapping\EscapingQuoteStrategy
+
     default.ancestry_generator:
         class: App\Domain\MagicSchool\Identity\Ancestry\Generator\DefaultAncestryGenerator
 

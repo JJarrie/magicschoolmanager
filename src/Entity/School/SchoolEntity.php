@@ -20,12 +20,12 @@ class SchoolEntity
      * @ORM\Column
      * @Assert\Length(max=255)
      */
-    private string $name;
+    private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
-    private UserInterface $owner;
+    private $owner;
 
     public function __construct(UuidInterface $id, string $name, UserInterface $owner)
     {

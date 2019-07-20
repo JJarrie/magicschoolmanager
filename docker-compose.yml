@@ -1,40 +1,21 @@
 version: '3.7'
 
 services:
-    database:
-        container_name: MagicSchoolManager_Database
-        image: mariadb:latest
-        environment:
-            MYSQL_DATABASE: magicschoolmanager
-            MYSQL_USER: symfony_magicschoolmanager
-            MYSQL_PASSWORD: magicschoolmanager
-            MYSQL_ROOT_PASSWORD: magicschoolmanager
-        ports:
-            - 3306:3306
-        volumes:
-            - ./docker/database:/etc/mysql/conf.d:cached
-            - ./data/db:/var/lib/mysql:rw
-
-    php:
-        container_name: MagicSchoolManager_PHP
-        depends_on:
-            - database
-        build:
-            context: ./docker/php
-        ports:
-            - 9000:9000
-        volumes:
-            - ./:/var/app:rw
-            - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini:cached
-        working_dir: /var/app
-
-    http:
-        container_name: MagicSchoolManager_HTTP
-        depends_on:
-            - php
-        image: nginx:latest
+    traefik:
+        image: traefik:latest
+        command: --api --docker
         ports:
             - 80:80
+            - 8080:8080
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+
+    http:
+        image: nginx:latest
+        depends_on:
+            - php
+        labels:
+            - "traefik.frontend.rule=Host:magicschoolmanager.docker.localhost"
         volumes:
             - ./logs/nginx:/var/log/nginx:cached
             - ./:/var/app:ro
@@ -42,12 +23,64 @@ services:
             - ./docker/nginx/sites-enabled:/etc/nginx/sites-enabled:cached
             - ./docker/nginx/conf.d:/etc/nginx/conf.d:cached
 
+    database:
+        image: postgres:11.4
+        environment:
+            POSTGRES_PASSWORD: admin
+        volumes:
+            - ./data/db:/var/lib/postgresql/data
+
+    adminer:
+        image: adminer:latest
+        labels:
+            - "traefik.port=8080"
+            - "traefik.frontend.rule=Host:db.msm.docker.localhost"
+
+    blackfire:
+        image: blackfire/blackfire
+        labels:
+            - "traefik.enable=false"
+        environment:
+            BLACKFIRE_CLIENT_ID: 7a613316-066b-42ab-a7c0-18e117941f09
+            BLACKFIRE_CLIENT_TOKEN: 6cd9ddcb21f1ca5311aa5beac29bb6d5c789496cce390808b976bcfcf4b82858
+            BLACKFIRE_SERVER_ID: f1042f63-0738-4ae1-ac74-479346dbd820
+            BLACKFIRE_SERVER_TOKEN: 725449cb38c60e00f00fb4c569cb59309335a603c380c424d9bf6c2323d06f0f
+
+    #redis:
+    #        image: redis:alpine
+    #        labels:
+    #            - "traefik.enable=false"
+
+    php:
+        depends_on:
+            - database
+        links:
+            - blackfire
+        labels:
+            - "traefik.enable=false"
+        environment:
+            BLACKFIRE_CLIENT_ID: 7a613316-066b-42ab-a7c0-18e117941f09
+            BLACKFIRE_CLIENT_TOKEN: 6cd9ddcb21f1ca5311aa5beac29bb6d5c789496cce390808b976bcfcf4b82858
+            BLACKFIRE_SERVER_ID: f1042f63-0738-4ae1-ac74-479346dbd820
+            BLACKFIRE_SERVER_TOKEN: 725449cb38c60e00f00fb4c569cb59309335a603c380c424d9bf6c2323d06f0f
+        build:
+            context: ./docker/php
+        ports:
+            - 9000:9000
+        volumes:
+            - ./:/var/app:rw
+            - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini:cached
+            - ~/.composer:/home/.composer
+        working_dir: /var/app
+
     node:
-        container_name: MagicSchoolManager_Node
         depends_on:
             - php
+        labels:
+            - "traefik.enable=false"
         build:
             context: ./docker/node
         volumes:
             - ./:/var/app:rw
+            - ~/.npm:/home/.npm
         working_dir: /var/app

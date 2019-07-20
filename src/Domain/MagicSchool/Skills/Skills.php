@@ -103,7 +103,6 @@ class Skills
         return $this->persuasion;
     }
 
-
     public function incrementRomance(): void
     {
         ++$this->romance;

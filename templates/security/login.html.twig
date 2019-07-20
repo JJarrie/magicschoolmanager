@@ -3,39 +3,36 @@
 {% block title %}{{ 'Log in!'|trans }}{% endblock %}
 
 {% block body %}
-    <form method="post" class="box">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-        <h3 class="title is-3">{{ 'Please sign in'|trans }}</h3>
-
-        <div class="field">
-            <div class="control has-icons-left">
-                <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="input"
-                       placeholder="Username" required autofocus>
-                <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
-                </span>
+    <form method="post">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <i class="material-icons input-group-text" id="username-input">person</i>
+                </div>
+                <input type="text" value="{{ last_username }}" name="username" class="form-control"
+                       placeholder="Username" required autofocus aria-label="Username"
+                       aria-describedby="username-input">
             </div>
         </div>
-        <div class="field">
-            <div class="control has-icons-left">
-                <input type="password" name="password" id="inputPassword" class="input" placeholder="Password"
-                       required>
-                <span class="icon is-small is-left">
-                    <i class="fas fa-lock"></i>
-                </span>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <i class="material-icons input-group-text" id="password-input">vpn_key</i>
+                </div>
+                <input type="password" name="password" id="inputPassword" class="form-control"
+                       placeholder="Password"
+                       required aria-label="Password" aria-describedby="password-input">
             </div>
         </div>
+
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <div class="field">
-            <p class="control">
-                <button class="button is-success" type="submit">
-                    {{ 'Sign in'|trans }}
-                </button>
-            </p>
+        <div class="form-group float-right">
+            <button class="btn btn-primary" type="submit">{{ 'Sign in'|trans }}</button>
         </div>
     </form>
 {% endblock %}

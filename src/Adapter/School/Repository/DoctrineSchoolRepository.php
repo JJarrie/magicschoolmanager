@@ -11,8 +11,8 @@ use Symfony\Component\Security\Core\Security;
 
 class DoctrineSchoolRepository implements SchoolRepositoryInterface
 {
-    private ObjectManager $objectManager;
-    private Security $security;
+    private $objectManager;
+    private $security;
 
     public function __construct(ObjectManager $objectManager, Security $security)
     {

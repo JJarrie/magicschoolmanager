@@ -1,24 +1,19 @@
-var Encore = require('@symfony/webpack-encore');
+const Encore = require('@symfony/webpack-encore');
 
 Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
-    .addEntry('app', './assets/ts/app.ts')
-    .splitEntryChunks()
-    .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
-    .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
-    .configureBabel(
-        () => {
-        }, {
-            useBuiltIns: 'usage',
-            corejs: 3
-        }
-    )
+    .addEntry('js/vendor', './assets/js/vendor.js')
+    .addEntry('js/app', './assets/ts/app.ts')
+    .addStyleEntry('css/app', './assets/sass/app.scss')
     .enableSassLoader()
+    .autoProvidejQuery()
     .enableTypeScriptLoader()
+    .enableSingleRuntimeChunk()
 ;
+
 
 module.exports = Encore.getWebpackConfig();

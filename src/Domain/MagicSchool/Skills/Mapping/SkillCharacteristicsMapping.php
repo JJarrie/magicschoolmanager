@@ -28,6 +28,4 @@ class SkillCharacteristicsMapping
             return ($element[0] === $characteristic1 || $element[0] === $characteristic2) && ($element[1] === $characteristic1 || $element[1] === $characteristic2);
         }));
     }
-
-
 }

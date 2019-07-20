@@ -1,4 +1,4 @@
-FROM php:rc-fpm-alpine
+FROM php:fpm-alpine
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
@@ -7,10 +7,8 @@ ENV APCU_VERSION 5.1.17
 RUN apk add --no-cache --virtual .global ca-certificates git wget \
     && apk add --no-cache --virtual .zip-deps unzip libzip-dev zlib-dev \
     && apk add --no-cache --virtual .intl-deps icu-libs icu-dev \
+    && apk add --no-cache --virtual .postgres postgresql-dev \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
-
-RUN wget http://pear.php.net/go-pear.phar
-RUN php go-pear.phar
 
 RUN pecl install ast
 RUN docker-php-ext-enable ast
@@ -21,7 +19,16 @@ RUN docker-php-ext-install intl zip \
 RUN apk del .build-deps
 
 RUN docker-php-ext-enable apcu opcache
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pdo_pgsql
+
+ENV current_os=alpine
+RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
+    && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/$current_os/amd64/$version \
+    && mkdir -p /tmp/blackfire \
+    && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
+    && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
+    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini \
+    && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
 RUN apk add gosu --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted && \
     addgroup bar && \

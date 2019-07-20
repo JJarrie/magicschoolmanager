@@ -3,16 +3,17 @@ parameters:
 
 doctrine:
     dbal:
-        driver: 'pdo_mysql'
-        server_version: 'mariadb-10.3.14'
-        charset: utf8mb4
+        driver: 'pdo_pgsql'
+        server_version: '11.4'
+        charset: utf8
         default_table_options:
-            charset: utf8mb4
-            collate: utf8mb4_unicode_ci
+            charset: utf8
+            collate: utf8_unicode_ci
 
         url: '%env(resolve:DATABASE_URL)%'
     orm:
         auto_generate_proxy_classes: true
+        quote_strategy: doctrine.orm.quote_strategy.escaping
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:

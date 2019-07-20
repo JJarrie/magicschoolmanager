@@ -1,24 +1,24 @@
-<nav class="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a href="{{ path('app_homepage') }}" class="navbar-brand">
+        <i class="material-icons">home</i>
+    </a>
 
-    <div class="navbar-brand">
-        <a href="{{ path('app_homepage') }}" class="navbar-item">
-            LOGO
-        </a>
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-
-    <div class="navbar-menu">
-        <div class="navbar-start">
-            <a href="{{ path('app_homepage') }}" class="navbar-item">{{ 'Home'|trans }}</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto">
+            <a href="#" class="nav-item nav-link">A nav link</a>
         </div>
-
-        <div class="navbar-end">
-            <a href="{{ path('app_logout') }}" class="navbar-item">{{ 'Logout'|trans }}</a>
+        <div class="navbar-nav ml-auto">
+            <a href="{{ path('app_logout') }}" class="nav-item nav-link">{{ 'Logout'|trans }}</a>
         </div>
     </div>
 </nav>

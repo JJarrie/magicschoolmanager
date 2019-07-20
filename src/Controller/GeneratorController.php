@@ -205,7 +205,6 @@ class GeneratorController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/generator/skills", name="app_generator_skills")
      */

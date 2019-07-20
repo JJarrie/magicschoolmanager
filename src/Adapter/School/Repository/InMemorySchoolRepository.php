@@ -7,7 +7,7 @@ use App\Domain\School\School;
 
 class InMemorySchoolRepository implements SchoolRepositoryInterface
 {
-    private array $innerRepository;
+    private $innerRepository;
 
     public function __construct()
     {

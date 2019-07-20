@@ -7,7 +7,6 @@ if [[ "$uid" -eq 0 ]] && [[ "$gid" -eq 0 ]]; then
     if [[ $# -eq 0 ]]; then
         php-fpm --allow-to-run-as-root
     else
-        echo "$@"
         exec "$@"
     fi
 fi
@@ -23,6 +22,5 @@ user=$(grep ":x:$uid:" /etc/passwd | cut -d: -f1)
 if [[ $# -eq 0 ]]; then
     php-fpm
 else
-    echo gosu ${user} "$@"
     exec gosu ${user} "$@"
 fi

@@ -2,11 +2,13 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.4",
+        "php": "^7.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-intl": "*",
+        "ext-zip": "*",
         "doctrine/doctrine-fixtures-bundle": "^3.1",
+        "phps-cans/quote-strategy.doctrine.escaping": "1.0.x-dev",
         "ramsey/uuid-doctrine": "^1.5",
         "symfony/console": "^4.2",
         "symfony/dotenv": "^4.2",
@@ -68,13 +70,23 @@
         }
     },
     "require-dev": {
+        "dephpend/dephpend": "^0.6.0",
         "drenso/phan-extensions": "^2.5",
         "friendsofphp/php-cs-fixer": "^2.14",
+        "infection/infection": "^0.13.4",
+        "pdepend/pdepend": "^2.5",
         "phan/phan": "^2.2",
         "phploc/phploc": "^5.0",
+        "phpmd/phpmd": "^2.6",
+        "phpmetrics/phpmetrics": "^2.4",
         "phpstan/phpstan": "^0.11.8",
+        "povils/phpmnd": "^2.1",
+        "rector/rector": "^0.5.7",
+        "rskuipers/php-assumptions": "^0.8.0",
+        "sebastian/phpcpd": "^4.1",
         "symfony/maker-bundle": "^1.11",
         "symfony/phpunit-bridge": "^4.2",
-        "symfony/profiler-pack": "^1.0"
+        "symfony/profiler-pack": "^1.0",
+        "vimeo/psalm": "^3.4"
     }
 }
