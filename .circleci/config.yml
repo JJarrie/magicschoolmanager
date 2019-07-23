@@ -4,36 +4,46 @@ aliases:
     - &restore_vendor_cache
         keys:
             - vendor-{{ checksum "composer.lock" }}
+
     - &save_vendor_cache
         key: vendor-{{ checksum "composer.lock" }}
         paths:
             - ~/data/vendor
+
     - &build_images
         - checkout
         - run: make build
         - run: make start
+
     - &attach_workspace
         attach_workspace:
             at: ~/data
+
+    - &vendor_install
+        name: Install Vendors
+        command: make dependencies
+
     - &dependencies
         - checkout
         - *attach_workspace
         - restore_cache: *restore_vendor_cache
-        - run: make dependencies
+        - run: *vendor_install
         - save_cache: *save_vendor_cache
         - persist_to_workspace:
               root: .
               paths:
                   - vendor
+
     - &phpunit
         - checkout
         - *attach_workspace
-        - run: *dependencies
+        - run: *vendor_install
         - run: make phpunit
+
     - &behat
         - checkout
         - *attach_workspace
-        - run: *dependencies
+        - run: *vendor_install
         - run: make behat
 
     - &deps
