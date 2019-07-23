@@ -6,7 +6,7 @@ jobs:
         steps:
             - checkout
             - setup_remote_docker:
-              docker-layer_caching: true
+                docker-layer_caching: true
             - run: make build
             - run: make start
 
