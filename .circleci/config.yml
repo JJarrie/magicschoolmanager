@@ -17,6 +17,7 @@ aliases:
             - at: ~/data
     - &dependencies
         - checkout
+        - *attach_workspace
         - restore_cache: *restore_vendor_cache
         - run: make dependencies
         - save_cache: *save_vendor_cache
@@ -26,9 +27,13 @@ aliases:
                   - vendor
     - &phpunit
         - checkout
+        - *attach_workspace
+        - run: *dependencies
         - run: make phpunit
     - &behat
         - checkout
+        - *attach_workspace
+        - run: *dependencies
         - run: make behat
 
     - &deps
