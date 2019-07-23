@@ -14,7 +14,7 @@ aliases:
         - run: make start
     - &attach_workspace
         attach_workspace:
-            - at: ~/data
+            at: ~/data
     - &dependencies
         - checkout
         - *attach_workspace
