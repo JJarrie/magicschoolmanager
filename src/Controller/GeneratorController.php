@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Domain\Generator\IntGeneratorInterface;
+use App\Domain\Generator\Int\IntGeneratorInterface;
 use App\Domain\MagicSchool\Characteristics\Generator\CharacteristicsGeneratorInterface;
 use App\Domain\MagicSchool\Date\DateRuleResolver;
+use App\Domain\MagicSchool\Identity\Ancestry\Ancestry;
 use App\Domain\MagicSchool\Identity\Ancestry\Generator\AncestryGeneratorInterface;
 use App\Domain\MagicSchool\Identity\Firstname\Generator\FirstnameGeneratorInterface;
 use App\Domain\MagicSchool\Identity\Gender\Generator\GenderGeneratorInterface;
@@ -47,11 +48,23 @@ class GeneratorController extends AbstractController
     public function ancestry(AncestryGeneratorInterface $ancestryGenerator, TranslatorInterface $translator): JsonResponse
     {
         $ancestry = $ancestryGenerator->generate();
+        $fatherAncestry = $ancestry->getFatherAncestry();
+        $motherAncestry = $ancestry->getMotherAncestry();
 
         return new JsonResponse([
             'ancestry' => $translator->trans($ancestry->getAncestry(), [], 'ancestry', 'fr'),
-            'father_ancestry' => $translator->trans($ancestry->getFatherAncestry()->getAncestry(), [], 'ancestry', 'fr'),
-            'mother_ancestry' => $translator->trans($ancestry->getMotherAncestry()->getAncestry(), [], 'ancestry', 'fr'),
+            'father_ancestry' => $translator->trans(
+                ($fatherAncestry instanceof Ancestry) ? $fatherAncestry->getAncestry() : '',
+                [],
+                'ancestry',
+                'fr'
+            ),
+            'mother_ancestry' => $translator->trans(
+                ($motherAncestry instanceof Ancestry) ? $motherAncestry->getAncestry() : '',
+                [],
+                'ancestry',
+                'fr'
+            ),
         ]);
     }
 
@@ -108,6 +121,8 @@ class GeneratorController extends AbstractController
         $magicScoolState = new MagicSchoolState(1, 8, 6);
         $identity = $identityGenerator->generate($magicSchoolConfiguration, $magicScoolState);
         $birthdayDate = $identity->getBirthdayDate();
+        $motherAncestry = $identity->getAncestry()->getMotherAncestry();
+        $fatherAncestry = $identity->getAncestry()->getFatherAncestry();
 
         return new JsonResponse([
             'firstname' => $identity->getFirstName(),
@@ -116,8 +131,18 @@ class GeneratorController extends AbstractController
             'age' => $dateRuleResolver->age($birthdayDate, $magicSchoolConfiguration, $magicScoolState),
             'gender' => $translator->trans($identity->getGender(), [], 'gender', 'fr'),
             'ancestry' => $translator->trans($identity->getAncestry()->getAncestry(), [], 'ancestry', 'fr'),
-            'mother_ancestry' => $translator->trans($identity->getAncestry()->getMotherAncestry()->getAncestry(), [], 'ancestry', 'fr'),
-            'father_ancestry' => $translator->trans($identity->getAncestry()->getFatherAncestry()->getAncestry(), [], 'ancestry', 'fr'),
+            'mother_ancestry' => $translator->trans(
+                ($motherAncestry instanceof Ancestry) ? $motherAncestry->getAncestry() : '',
+                [],
+                'ancestry',
+                'fr'
+            ),
+            'father_ancestry' => $translator->trans(
+                ($fatherAncestry instanceof Ancestry) ? $fatherAncestry->getAncestry() : '',
+                [],
+                'ancestry',
+                'fr'
+            ),
             'raising_world' => $translator->trans($identity->getRaisingWorld(), [], 'raising_world', 'fr'),
         ]);
     }
@@ -143,6 +168,8 @@ class GeneratorController extends AbstractController
         $magicSchoolConfiguration = new MagicSchoolConfiguration(2019, 11, 7, 1, 9);
         $magicScoolState = new MagicSchoolState(1, 8, 6);
         $student = $studentGenerator->generate($magicSchoolConfiguration, $magicScoolState);
+        $motherAncestry = $student->getIdentity()->getAncestry()->getMotherAncestry();
+        $fatherAncestry = $student->getIdentity()->getAncestry()->getFatherAncestry();
 
         return new JsonResponse(
             [
@@ -153,8 +180,18 @@ class GeneratorController extends AbstractController
                     'age' => $dateRuleResolver->age($student->getIdentity()->getBirthdayDate(), $magicSchoolConfiguration, $magicScoolState),
                     'gender' => $translator->trans($student->getIdentity()->getGender(), [], 'gender', 'fr'),
                     'ancestry' => $translator->trans($student->getIdentity()->getAncestry()->getAncestry(), [], 'ancestry', 'fr'),
-                    'mother_ancestry' => $translator->trans($student->getIdentity()->getAncestry()->getMotherAncestry()->getAncestry(), [], 'ancestry', 'fr'),
-                    'father_ancestry' => $translator->trans($student->getIdentity()->getAncestry()->getFatherAncestry()->getAncestry(), [], 'ancestry', 'fr'),
+                    'mother_ancestry' => $translator->trans(
+                        ($motherAncestry instanceof Ancestry) ? $motherAncestry->getAncestry() : '',
+                        [],
+                        'ancestry',
+                        'fr'
+                    ),
+                    'father_ancestry' => $translator->trans(
+                        ($fatherAncestry instanceof Ancestry) ? $fatherAncestry->getAncestry() : '',
+                        [],
+                        'ancestry',
+                        'fr'
+                    ),
                     'raising_world' => $translator->trans($student->getIdentity()->getRaisingWorld(), [], 'raising_world', 'fr'),
                 ],
                 'wand' => [

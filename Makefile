@@ -1,5 +1,6 @@
 DOCKER_COMPOSE=docker-compose
 PHP_EXEC=$(DOCKER_COMPOSE) exec -T php /entrypoint
+TOOLS_EXEC=$(DOCKER_COMPOSE) run --rm tools
 JS_EXEC=$(DOCKER_COMPOSE) exec -T node /entrypoint
 SYMFONY_CONSOLE=$(PHP_EXEC) bin/console
 COMPOSER=$(PHP_EXEC) composer
@@ -33,6 +34,16 @@ db-create: ## Create the database
 
 db-drop: ## Drop the database
 	$(SYMFONY_CONSOLE) doctrine:database:drop --force
+
+################
+# Dependencies #
+################
+
+dependencies: composer.lock ## Install PHP Dependencies
+	$(TOOLS_EXEC) composer install
+
+dependencies-upgrade: ## Upgrade PHP Dependencies
+	$(TOOLS_EXEC) COMPOSER_MEMORY_LIMIT=-1 composer update
 
 #######################
 # Database migrations #
@@ -70,36 +81,48 @@ front-dependency-install: ## Install the front dependency
 front-dependency-upgrade: ## Upgrade the front dependency
 	$(YARN) upgrade
 
+########
+# Test #
+########
+
+all-tests: phpunit behat ## Start all tests
+
+phpunit: ## Start units tests
+	$(TOOLS_EXEC) vendor/bin/simple-phpunit
+
+behat: ## Start behats tests
+	$(TOOLS_EXEC) vendor/bin/behat
+
 ####################
 # Quality Analysis #
 ####################
 
 phpstan: ## Launch PHPStan tool
-	$(PHP_EXEC) vendor/bin/phpstan analyse src/ --level 7
+	$(TOOLS_EXEC) vendor/bin/phpstan analyse src/ --level 7
 
 phan: ## Launch Phan tool
-	$(PHP_EXEC) vendor/bin/phan
+	$(TOOLS_EXEC) vendor/bin/phan
 
 cs-fix: ## Launch php-cs-fixer on src directory
-	$(PHP_EXEC) vendor/bin/php-cs-fixer fix src/
+	$(TOOLS_EXEC) vendor/bin/php-cs-fixer fix src/
 
 phploc: ## Launch phploc tool
-	$(PHP_EXEC) vendor/bin/phploc src/
+	$(TOOLS_EXEC) vendor/bin/phploc src/
 
 phpa: ## Launch PHP assumptions tool
-	$(PHP_EXEC) vendor/bin/phpa src/
+	$(TOOLS_EXEC) vendor/bin/phpa src/
 
 phpcpd: ## Launch PHP Copy/Past Detector Tool
-	$(PHP_EXEC) vendor/bin/phpcpd src/
+	$(TOOLS_EXEC) vendor/bin/phpcpd src/
 
 phpmnd: ## Laucn PHP Magic Number Detector Tool
-	$(PHP_EXEC) vendor/bin/phpmnd src/
+	$(TOOLS_EXEC) vendor/bin/phpmnd src/
 
 phpmetrics: ## Generate a PHPMetrics report
-	$(PHP_EXEC) vendor/bin/phpmetrics --report-html=build/metrics src/
+	$(TOOLS_EXEC) vendor/bin/phpmetrics --report-html=build/metrics src/
 
 psalm: ## Launch Psalm Tool
-	$(PHP_EXEC) vendor/bin/psalm
+	$(TOOLS_EXEC) vendor/bin/psalm
 
 dephpend-metrics: dephpend ## Launch metrics dephpend
 	docker run --rm -v $(shell pwd)/src:/inspect mihaeu/dephpend:latest metrics /inspect
@@ -114,10 +137,10 @@ dephpend: ## Build dephpend output directory
 	mkdir -p $(shell pwd)/build/dephpend
 
 infection: ## Run mutation testing
-	$(PHP_EXEC) phpdbg -qrr vendor/bin/infection
+	$(TOOLS_EXEC) phpdbg -qrr vendor/bin/infection
 
 phpmd: ## Launch PHPMD
-	$(PHP_EXEC) vendor/bin/phpmd src/ text phpmd.xml
+	$(TOOLS_EXEC) vendor/bin/phpmd src/ text phpmd.xml
 
 pdepend: ## Launch PDepend
-	$(PHP_EXEC) vendor/bin/pdepend --summary-xml=build/pdepend/summary.xml --jdepend-chart=build/pdepend/jdepend.svg --overview-pyramid=build/pdepend/pyramid.svg src/
+	$(TOOLS_EXEC) vendor/bin/pdepend --summary-xml=build/pdepend/summary.xml --jdepend-chart=build/pdepend/jdepend.svg --overview-pyramid=build/pdepend/pyramid.svg src/

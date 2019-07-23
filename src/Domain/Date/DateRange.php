@@ -7,18 +7,18 @@ class DateRange
     private $from;
     private $to;
 
-    public function __construct(\DateTime $from, \DateTime $to)
+    public function __construct(\DateTimeImmutable $from, \DateTimeImmutable $to)
     {
         $this->from = $from;
         $this->to = $to;
     }
 
-    public function getFrom(): \DateTime
+    public function getFrom(): \DateTimeImmutable
     {
         return $this->from;
     }
 
-    public function getTo(): \DateTime
+    public function getTo(): \DateTimeImmutable
     {
         return $this->to;
     }

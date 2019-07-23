@@ -10,18 +10,18 @@
         "doctrine/doctrine-fixtures-bundle": "^3.1",
         "phps-cans/quote-strategy.doctrine.escaping": "1.0.x-dev",
         "ramsey/uuid-doctrine": "^1.5",
-        "symfony/console": "^4.2",
-        "symfony/dotenv": "^4.2",
+        "symfony/console": "^4.3",
+        "symfony/dotenv": "^4.3",
         "symfony/flex": "^1.1",
-        "symfony/form": "^4.2",
-        "symfony/framework-bundle": "^4.2",
+        "symfony/form": "^4.3",
+        "symfony/framework-bundle": "^4.3",
         "symfony/orm-pack": "^1.0",
-        "symfony/security-bundle": "^4.2",
-        "symfony/translation": "^4.2",
-        "symfony/twig-bundle": "^4.2",
-        "symfony/validator": "^4.2",
+        "symfony/security-bundle": "^4.3",
+        "symfony/translation": "^4.3",
+        "symfony/twig-bundle": "^4.3",
+        "symfony/validator": "^4.3",
         "symfony/webpack-encore-bundle": "^1.5",
-        "symfony/yaml": "^4.2"
+        "symfony/yaml": "^4.3"
     },
     "config": {
         "preferred-install": {
@@ -37,7 +37,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "App\\Tests\\": "tests/",
+            "App\\Context\\": "features/bootstrap/"
         }
     },
     "replace": {
@@ -66,10 +67,11 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "^4.2"
+            "require": "^4.3"
         }
     },
     "require-dev": {
+        "behat/behat": "^3.5",
         "dephpend/dephpend": "^0.6.0",
         "drenso/phan-extensions": "^2.5",
         "friendsofphp/php-cs-fixer": "^2.14",
@@ -85,7 +87,7 @@
         "rskuipers/php-assumptions": "^0.8.0",
         "sebastian/phpcpd": "^4.1",
         "symfony/maker-bundle": "^1.11",
-        "symfony/phpunit-bridge": "^4.2",
+        "symfony/phpunit-bridge": "^4.3",
         "symfony/profiler-pack": "^1.0",
         "vimeo/psalm": "^3.4"
     }

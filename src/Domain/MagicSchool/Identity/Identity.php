@@ -13,7 +13,7 @@ class Identity
     private $ancestry;
     private $raisingWorld;
 
-    public function __construct(string $gender, string $firstName, string $lastName, \DateTime $birthdayDate, Ancestry $ancestry, string $raisingWorld)
+    public function __construct(string $gender, string $firstName, string $lastName, \DateTimeImmutable $birthdayDate, Ancestry $ancestry, string $raisingWorld)
     {
         $this->gender = $gender;
         $this->firstName = $firstName;
@@ -38,7 +38,7 @@ class Identity
         return $this->lastName;
     }
 
-    public function getBirthdayDate(): \DateTime
+    public function getBirthdayDate(): \DateTimeImmutable
     {
         return $this->birthdayDate;
     }

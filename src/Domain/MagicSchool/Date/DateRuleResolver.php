@@ -17,7 +17,7 @@ class DateRuleResolver
         return $this->greatestBirthYearForStudent($schoolConfiguration, $schoolState) - $schoolConfiguration->getNbStudyingYear();
     }
 
-    public function age(\DateTime $birthdayDate, MagicSchoolConfiguration $schoolConfiguration, MagicSchoolState $schoolState): int
+    public function age(\DateTimeImmutable $birthdayDate, MagicSchoolConfiguration $schoolConfiguration, MagicSchoolState $schoolState): int
     {
         $currentYear = ($schoolConfiguration->getCalendarYearStart() + $schoolState->getCurrentYear() - 1);
         $age = $currentYear - (int) $birthdayDate->format('Y');

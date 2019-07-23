@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Domain\Generator;
+namespace App\Domain\Generator\Int;
+
+use App\Domain\Generator\GeneratorInterface;
 
 interface IntGeneratorInterface extends GeneratorInterface
 {

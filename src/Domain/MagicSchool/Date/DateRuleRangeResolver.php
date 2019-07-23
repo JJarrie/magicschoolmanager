@@ -24,8 +24,16 @@ class DateRuleRangeResolver
         $month = $schoolConfiguration->getBackToSchoolMonth();
 
         return new DateRange(
-            $this->dateFactory->create($day, $month, $this->dateRuleResolver->lowestYearBirthForStudent($schoolConfiguration, $schoolState)),
-            $this->dateFactory->create($day, $month, $this->dateRuleResolver->greatestBirthYearForStudent($schoolConfiguration, $schoolState))
+            $this->dateFactory->create(
+                sprintf('%02d', $day),
+                sprintf('%02d', $month),
+                sprintf('%4d', $this->dateRuleResolver->lowestYearBirthForStudent($schoolConfiguration, $schoolState))
+            ),
+            $this->dateFactory->create(
+                sprintf('%02d', $day),
+                sprintf('%02d', $month),
+                sprintf('%4d', $this->dateRuleResolver->greatestBirthYearForStudent($schoolConfiguration, $schoolState))
+            )
         );
     }
 
@@ -36,8 +44,16 @@ class DateRuleRangeResolver
         $month = $schoolConfiguration->getBackToSchoolMonth();
 
         return new DateRange(
-            $this->dateFactory->create($day, $month, $lowestYear + $schoolConfiguration->getNbStudyingYear() - $studentYear - 1),
-            $this->dateFactory->create($day, $month, $lowestYear + $schoolConfiguration->getNbStudyingYear() - $studentYear)
+            $this->dateFactory->create(
+                sprintf('%02d', $day),
+                sprintf('%02d', $month),
+                sprintf('%4d', $lowestYear + $schoolConfiguration->getNbStudyingYear() - $studentYear - 1)
+            ),
+            $this->dateFactory->create(
+                sprintf('%02d', $day),
+                sprintf('%02d', $month),
+                sprintf('%4d', $lowestYear + $schoolConfiguration->getNbStudyingYear() - $studentYear)
+            )
         );
     }
 }

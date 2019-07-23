@@ -4,7 +4,7 @@ namespace App\Domain\Generator;
 
 interface DateGeneratorInterface extends GeneratorInterface
 {
-    public function generate(): \DateTime;
+    public function generate(): \DateTimeImmutable;
 
-    public function generateBetween(\DateTime $min, \DateTime $max): \DateTime;
+    public function generateBetween(\DateTimeImmutable $min, \DateTimeImmutable $max): \DateTimeImmutable;
 }

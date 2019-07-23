@@ -22,6 +22,7 @@ class DoctrineSchoolRepository implements SchoolRepositoryInterface
 
     public function save(School $school): void
     {
+        $user = $this->security->getToken()->getUser();
         $doctrineSchoolEntity = new SchoolEntity(Uuid::uuid4(), $school->getName(), $this->security->getUser());
         $this->objectManager->persist($doctrineSchoolEntity);
         $this->objectManager->flush();

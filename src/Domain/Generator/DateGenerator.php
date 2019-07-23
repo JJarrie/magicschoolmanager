@@ -2,6 +2,8 @@
 
 namespace App\Domain\Generator;
 
+use App\Domain\Generator\Int\IntGeneratorInterface;
+
 class DateGenerator implements DateGeneratorInterface
 {
     private $intGenerator;
@@ -11,23 +13,23 @@ class DateGenerator implements DateGeneratorInterface
         $this->intGenerator = $intGenerator;
     }
 
-    public function generate(): \DateTime
+    public function generate(): \DateTimeImmutable
     {
         $timestamp = $this->intGenerator->generate();
 
         return $this->buildDateFromTimestamp($timestamp);
     }
 
-    public function generateBetween(\DateTime $min, \DateTime $max): \DateTime
+    public function generateBetween(\DateTimeImmutable $min, \DateTimeImmutable $max): \DateTimeImmutable
     {
         $timestamp = $this->intGenerator->generateBetween($min->getTimestamp(), $max->getTimestamp());
 
         return $this->buildDateFromTimestamp($timestamp);
     }
 
-    private function buildDateFromTimestamp(int $timestamp): \DateTime
+    private function buildDateFromTimestamp(int $timestamp): \DateTimeImmutable
     {
-        $date = new \DateTime();
+        $date = new \DateTimeImmutable();
         $date->setTimestamp($timestamp);
 
         return $date;

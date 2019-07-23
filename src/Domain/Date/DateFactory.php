@@ -2,12 +2,21 @@
 
 namespace App\Domain\Date;
 
+use App\Domain\Date\Exceptions\DateTimeCreationException;
+
 class DateFactory
 {
     private const CREATE_FORMAT = 'd m Y H i s';
 
-    public function create(int $day, int $month, int $year, int $hours = 0, int $minutes = 0, int $seconds = 0): \DateTime
+    public function create(string $day, string $month, string $year, string $hours = '00', string $minutes = '00', string $seconds = '00'): \DateTimeImmutable
     {
-        return \DateTime::createFromFormat(self::CREATE_FORMAT, sprintf('%02d %02d %04d %02d %02d %02d', $day, $month, $year, $hours, $minutes, $seconds));
+        $creationString = sprintf('%s %s %s %s %s %s', $day, $month, $year, $hours, $minutes, $seconds);
+        $datetime = \DateTimeImmutable::createFromFormat(self::CREATE_FORMAT, $creationString);
+
+        if (false === $datetime) {
+            throw new DateTimeCreationException(sprintf('Unable to create a date with the datas : %s', $creationString));
+        }
+
+        return $datetime;
     }
 }

@@ -23,10 +23,10 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles;
 
     /**
-     * @var string The hashed password
+     * @var string|null The hashed password
      *
      * @ORM\Column(type="string")
      */
@@ -42,7 +42,7 @@ class User implements UserInterface
 
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return $this->username;
     }
 
     public function getRoles(): array
@@ -53,7 +53,7 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return (string) $this->password;
     }
@@ -62,7 +62,7 @@ class User implements UserInterface
     {
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 }
