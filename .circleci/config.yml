@@ -1,11 +1,56 @@
 version: 2
 
+aliases:
+    - &restore_vendor_cache:
+        keys:
+            - vendor-{{ checksum "composer.lock" }}
+    - &save_vendor_cache:
+        keys: vendor-{{ checksum "composer.lock" }}
+        paths:
+            - ~/data/vendor
+    - &build_images
+        - checkout
+        - run: make build
+        - run: make start
+    - &attach_workspace:
+        attach_workspace:
+            - at: ~/data
+    - &dependencies
+        - checkout
+        - restore_cache: *restore_vendor_cache
+        - run: make dependencies
+        - save_cache: *save_vendor_cache
+        - persist_to_workspace:
+              root: .
+              paths:
+                  - vendor
+    - &phpunit:
+        - checkout
+        - run: make phpunit
+    - &behat:
+        - checkout
+        - run: make behat
+
+    - &deps:
+        "Dependencies"
+
 jobs:
-    build:
-        machine: true
-        steps:
-            - checkout
-            - run: make build
-            - run: make start
+    "Build Images":
+        <<<: *build_images
+    "Dependencies":
+        <<<: *dependencies
+    "PHPUnit":
+        <<<: *phpunit
+    "Behat":
+        <<<: *behat
 
-
+workflows:
+    version: 2
+    master:
+        jobs:
+            - "Build Image"
+            - "Dependencies"
+            - "PHPUnit":
+                  requires: *deps
+            - "Behat":
+                  requires: *deps
