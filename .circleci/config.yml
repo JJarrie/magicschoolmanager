@@ -34,15 +34,9 @@ aliases:
     - &deps:
         "Dependencies"
 
-jobs:
-    "Build Images":
-        <<<: *build_images
-    "Dependencies":
-        <<<: *dependencies
-    "PHPUnit":
-        <<<: *phpunit
-    "Behat":
-        <<<: *behat
+    - &build_environment:
+        working_directory: ~/data
+        machine: true
 
 workflows:
     version: 2
@@ -54,3 +48,17 @@ workflows:
                   requires: *deps
             - "Behat":
                   requires: *deps
+
+jobs:
+    "Build Images":
+        <<<: *build_environment
+        steps: *build_images
+    "Dependencies":
+        <<<: *build_environment
+        steps: *dependencies
+    "PHPUnit":
+        <<<: *build_environment
+        steps: *phpunit
+    "Behat":
+        <<<: *build_environment
+        steps: *behat
