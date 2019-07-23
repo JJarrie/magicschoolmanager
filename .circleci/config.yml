@@ -1,10 +1,10 @@
 version: 2
 
 aliases:
-    - &restore_vendor_cache:
+    - &restore_vendor_cache
         keys:
             - vendor-{{ checksum "composer.lock" }}
-    - &save_vendor_cache:
+    - &save_vendor_cache
         keys: vendor-{{ checksum "composer.lock" }}
         paths:
             - ~/data/vendor
@@ -12,7 +12,7 @@ aliases:
         - checkout
         - run: make build
         - run: make start
-    - &attach_workspace:
+    - &attach_workspace
         attach_workspace:
             - at: ~/data
     - &dependencies
@@ -24,17 +24,17 @@ aliases:
               root: .
               paths:
                   - vendor
-    - &phpunit:
+    - &phpunit
         - checkout
         - run: make phpunit
-    - &behat:
+    - &behat
         - checkout
         - run: make behat
 
-    - &deps:
-        "Dependencies"
+    - &deps
+        - "Dependencies"
 
-    - &build_environment:
+    - &build_environment
         working_directory: ~/data
         machine: true
 
