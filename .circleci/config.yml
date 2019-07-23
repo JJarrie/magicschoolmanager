@@ -36,7 +36,9 @@ aliases:
 
     - &build_environment
         working_directory: ~/data
-        machine: true
+        build:
+            machine:
+                docker_layer_caching: true
 
 workflows:
     version: 2
