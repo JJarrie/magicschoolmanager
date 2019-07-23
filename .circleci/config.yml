@@ -5,7 +5,7 @@ aliases:
         keys:
             - vendor-{{ checksum "composer.lock" }}
     - &save_vendor_cache
-        keys: vendor-{{ checksum "composer.lock" }}
+        key: vendor-{{ checksum "composer.lock" }}
         paths:
             - ~/data/vendor
     - &build_images
@@ -43,7 +43,7 @@ workflows:
     version: 2
     master:
         jobs:
-            - "Build Image"
+            - "Build Images"
             - "Dependencies"
             - "PHPUnit":
                   requires: *deps
