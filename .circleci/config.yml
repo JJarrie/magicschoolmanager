@@ -52,14 +52,14 @@ workflows:
 
 jobs:
     "Build Images":
-        <<<: *build_environment
+        <<: *build_environment
         steps: *build_images
     "Dependencies":
-        <<<: *build_environment
+        <<: *build_environment
         steps: *dependencies
     "PHPUnit":
-        <<<: *build_environment
+        <<: *build_environment
         steps: *phpunit
     "Behat":
-        <<<: *build_environment
+        <<: *build_environment
         steps: *behat
