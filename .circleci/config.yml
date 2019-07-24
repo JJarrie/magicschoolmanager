@@ -135,7 +135,6 @@ aliases:
         - "PHP Copy/Paste Detector"
         - "PHP Magic Number Detector"
         - "Psalm"
-        - "PHP MD"
 
     - &build_environment
         working_directory: ~/data
