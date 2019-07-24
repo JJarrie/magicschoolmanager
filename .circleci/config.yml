@@ -182,82 +182,62 @@ workflows:
                   requires: *qa_deps
             - "PDepend":
                   requires: *qa_deps
+
 jobs:
     "Build Images":
         <<: *build_environment
         steps: *build_images
-
     "Dependencies":
         <<: *build_environment
         steps: *dependencies
-
-    # Tests
     "PHPUnit":
         <<: *build_environment
         steps: *phpunit
-
     "Behat":
         <<: *build_environment
         steps: *behat
-
     "Infection":
         <<: *build_environment
         steps: *infection
-
-    # QA
     "PHPStan":
         <<: *build_environment
         steps: *phpstan
-
     "Phan":
         <<: *build_environment
         steps: *phan
-
     "CS-Fix":
         <<: *build_environment
         steps: *csfix
-
     "PHP Assumptions":
         <<: *build_environment
         steps: *phpa
-
     "PHP Copy/Paste Detector":
         <<: *build_environment
         steps: *phpcpd
-
     "PHP Magic Number Detector":
         <<: *build_environment
         steps: *phpmnd
-
     "Psalm":
         <<: *build_environment
         steps: *psalm
-
-    # Metrics
     "PHP MD":
         <<: *build_environment
         steps: *phpmd
-
     "Dephpend Metrics":
         <<: *build_environment
         steps: *dephpend_metrics
-
     "Dephpend UML":
         <<: *build_environment
         steps: *dephpend_uml
-
     "Dephpend DSM":
         <<: *build_environment
         steps: *dephpend_dsm
-
     "PHP Metrics":
         <<: *build_environment
         steps: *phpmetrics
-
     "PHP Loc":
         <<: *build_environment
         steps: *phploc
-
     "PDepend":
         <<: *build_environment
         steps: *pdepend
