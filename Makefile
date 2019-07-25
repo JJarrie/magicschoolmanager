@@ -151,7 +151,7 @@ dephpend: ## Build dephpend output directory
 	mkdir -p $(shell pwd)/build/dephpend
 
 phpmd: ## Launch PHPMD
-	$(TOOLS_EXEC) vendor/bin/phpmd src/ text phpmd.xml
+	$(TOOLS_EXEC) vendor/bin/phpmd --ignore-violations-on-exit src/ text phpmd.xml
 
 pdepend: ## Launch PDepend
 	$(TOOLS_EXEC) vendor/bin/pdepend --summary-xml=build/pdepend/summary.xml --jdepend-chart=build/pdepend/jdepend.svg --overview-pyramid=build/pdepend/pyramid.svg src/
