@@ -2,7 +2,6 @@
 
 namespace App\Domain\DiceRollGenerator;
 
-
 use App\Domain\Generator\Int\IntGeneratorInterface;
 
 class DiceRollGenerator implements DiceRollGeneratorInterface

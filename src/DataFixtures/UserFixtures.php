@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Domain\User\DTO\CreateUserDto;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -11,6 +12,16 @@ class UserFixtures extends Fixture
 {
     private $passwordEncoder;
 
+    private const USERS = [
+        [
+            'firstname' => 'Général',
+            'lastname' => 'Administrator',
+            'username' => 'Admin',
+            'plainPassword' => 'admin',
+            'roles' => ['ROLE_ADMIN'],
+        ],
+    ];
+
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
@@ -18,15 +29,28 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $user = new User('admin', ['ROLE_ADMIN']);
-        $password = $this->passwordEncoder->encodePassword($user, 'admin');
-        $user = new User($user->getUsername(), $user->getRoles(), $password);
-        $manager->persist($user);
+        foreach (self::USERS as $userDatas) {
+            $tmpCreateUserDto = new CreateUserDto(
+                $userDatas['firstname'],
+                $userDatas['lastname'],
+                $userDatas['username'],
+                '',
+                $userDatas['roles']
+            );
+            $user = User::createFromCreateDto($tmpCreateUserDto);
 
-        $user = new User('user', ['ROLE_ADMIN']);
-        $password = $this->passwordEncoder->encodePassword($user, 'user');
-        $user = new User($user->getUsername(), $user->getRoles(), $password);
-        $manager->persist($user);
+            $password = $this->passwordEncoder->encodePassword($user, $userDatas['plainPassword']);
+            $finalCreateUserDto = new CreateUserDto(
+                $userDatas['firstname'],
+                $userDatas['lastname'],
+                $userDatas['username'],
+                $password,
+                $userDatas['roles']
+            );
+            $user = User::createFromCreateDto($finalCreateUserDto);
+
+            $manager->persist($user);
+        }
 
         $manager->flush();
     }

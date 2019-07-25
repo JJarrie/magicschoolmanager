@@ -1,24 +1,9 @@
 default:
     suites:
-        dice:
-            paths:
-                - features/rules/dice
+        default:
             contexts:
-                - App\Context\Rules\Dice\DiceSetContext
-        character:
-            paths:
-                - features/rules/character
-            contexts:
-                - App\Context\Rules\Character\CharacterContext
-                - App\Context\Rules\Character\Ancestry\AncestryContext
-        campaign:
-            paths:
-                - features/rules/campaign
-            contexts:
-                - App\Context\Rules\Campaign\CampaignContext
-                - App\Context\Rules\Campaign\Period\PeriodContext
-        player:
-            paths:
-                - features/rules/player
-            contexts:
-                - App\Context\Rules\Player\PlayerContext
+                - App\Tests\Behat\DemoContext
+                - App\Tests\Behat\Domain\UserContext
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension: ~

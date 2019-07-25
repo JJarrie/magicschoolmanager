@@ -373,6 +373,7 @@ return [
         'vendor/symfony/security-bundle',
         'vendor/symfony/translation',
         'vendor/symfony/twig-bundle',
+        'vendor/twig/twig',
         'vendor/symfony/validator',
         'vendor/symfony/webpack-encore-bundle/src',
         'vendor/symfony/yaml',

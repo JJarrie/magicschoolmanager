@@ -37,8 +37,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/",
-            "App\\Context\\": "features/bootstrap/"
+            "App\\Tests\\": "tests/"
         }
     },
     "replace": {
@@ -74,6 +73,7 @@
         "behat/behat": "^3.5",
         "dephpend/dephpend": "^0.6.0",
         "drenso/phan-extensions": "^2.5",
+        "friends-of-behat/symfony-extension": "^2.0",
         "friendsofphp/php-cs-fixer": "^2.14",
         "infection/infection": "^0.13.4",
         "pdepend/pdepend": "^2.5",

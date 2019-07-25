@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+        bind:
+            App\Domain\MagicSchool\Identity\Ancestry\Generator\AncestryGeneratorInterface $ancestryGenerator: '@default.ancestry_generator'
+            App\Domain\MagicSchool\Identity\Lastname\Provider\LastNameProviderInterface: '@default.lastname_provider'
+
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    App\Tests\Behat\:
+        resource: '../tests/Behat/*'
+
+    App\Domain\User\Persister\UserPersisterInterface:
+        class: App\Infrastructure\User\Persister\DoctrineUserPersister

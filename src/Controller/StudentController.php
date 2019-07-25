@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Domain\MagicSchool\MagicSchoolConfiguration;
 use App\Domain\MagicSchool\MagicSchoolState;
 use App\Domain\MagicSchool\Student\Generator\StudentGeneratorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;

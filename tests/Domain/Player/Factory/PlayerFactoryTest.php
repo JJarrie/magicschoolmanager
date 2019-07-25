@@ -2,22 +2,22 @@
 
 namespace App\Tests\Domain\Player\Factory;
 
-use App\Domain\Player\Factory\PlayerFactory;
-use App\Domain\Player\Player;
+use App\Domain\User\Factory\UserFactory;
+use App\Domain\User\UserInterface;
 use PHPUnit\Framework\TestCase;
 
 class PlayerFactoryTest extends TestCase
 {
     public function testCreateGivePlayer(): void
     {
-        $player = (new PlayerFactory())->create('');
+        $player = (new UserFactory())->create('');
 
-        $this->assertInstanceOf(Player::class, $player);
+        $this->assertInstanceOf(UserInterface::class, $player);
     }
 
     public function testCreateGivePlayerWithCorrectName(): void
     {
-        $player = (new PlayerFactory())->create('Henry');
+        $player = (new UserFactory())->create('Henry');
 
         $this->assertEquals('Henry', $player->getName());
     }
