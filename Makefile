@@ -91,10 +91,10 @@ phpunit: ## Start units tests
 	$(TOOLS_EXEC) vendor/bin/simple-phpunit
 
 behat: ## Start behats tests
-	$(SYMFONY_CONSOLE) doctrine:database:create --env=test
-	$(SYMFONY_CONSOLE) doctrine:schema:update --force --env=test
+	$(TOOLS_EXEC) doctrine:database:create --env=test
+	$(TOOLS_EXEC) doctrine:schema:update --force --env=test
 	$(TOOLS_EXEC) vendor/bin/behat
-	$(SYMFONY_CONSOLE) doctrine:database:drop --force --env=test
+	$(TOOLS_EXEC) doctrine:database:drop --force --env=test
 
 infection: ## Run mutation testing
 	$(TOOLS_EXEC) phpdbg -qrr vendor/bin/infection
