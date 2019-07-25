@@ -6,9 +6,10 @@ use App\Domain\User\DTO\CreateUserDto;
 use App\Domain\User\Persister\UserPersisterInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\UserInterface;
-use App\Infrastructure\User\User;
+use App\Entity\User;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Webmozart\Assert\Assert;
 
 final class UserContext implements Context
 {
@@ -49,6 +50,7 @@ final class UserContext implements Context
             $userInfoHashColumn[0]['Lastname'],
             $userInfoHashColumn[0]['Username'],
             $userInfoHashColumn[0]['Password'],
+            [$userInfoHashColumn[0]['Role']]
         );
     }
 
@@ -78,5 +80,6 @@ final class UserContext implements Context
         Assert::eq($userInfoHashColumn[0]['Firstname'], $this->findedUser->getFirstname());
         Assert::eq($userInfoHashColumn[0]['Lastname'], $this->findedUser->getLastname());
         Assert::eq($userInfoHashColumn[0]['Username'], $this->findedUser->getUsername());
+        Assert::eq([$userInfoHashColumn[0]['Role']], $this->findedUser->getRoles());
     }
 }

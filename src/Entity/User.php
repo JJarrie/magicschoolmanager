@@ -57,6 +57,9 @@ class User implements SfUserInterface, UserInterface
         return $this->username;
     }
 
+    /**
+     * @return (\Symfony\Component\Security\Core\Role\Role|string)[]
+     */
     public function getRoles(): array
     {
         $roles = $this->roles;

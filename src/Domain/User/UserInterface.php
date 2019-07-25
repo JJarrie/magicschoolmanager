@@ -12,5 +12,7 @@ interface UserInterface
 
     public function getUsername(): string;
 
+    public function getRoles(): array;
+
     public static function createFromCreateDto(CreateUserDto $createUserDTO);
 }

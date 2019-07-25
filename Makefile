@@ -85,17 +85,25 @@ front-dependency-upgrade: ## Upgrade the front dependency
 # Test #
 ########
 
-all-tests: phpunit behat ## Start all tests
+all-tests: phpunit behat infection ## Start all tests
 
 phpunit: ## Start units tests
 	$(TOOLS_EXEC) vendor/bin/simple-phpunit
 
 behat: ## Start behats tests
+	$(SYMFONY_CONSOLE) doctrine:database:create --env=test
+	$(SYMFONY_CONSOLE) doctrine:schema:update --force --env=test
 	$(TOOLS_EXEC) vendor/bin/behat
+	$(SYMFONY_CONSOLE) doctrine:database:drop --force --env=test
+
+infection: ## Run mutation testing
+	$(TOOLS_EXEC) phpdbg -qrr vendor/bin/infection
 
 ####################
 # Quality Analysis #
 ####################
+
+all-qa: cs-fix phpstan phan phpa phpcpd phpmnd psalm
 
 phpstan: ## Launch PHPStan tool
 	$(TOOLS_EXEC) vendor/bin/phpstan analyse src/ --level 7
@@ -106,9 +114,6 @@ phan: ## Launch Phan tool
 cs-fix: ## Launch php-cs-fixer on src directory
 	$(TOOLS_EXEC) vendor/bin/php-cs-fixer fix src/
 
-phploc: ## Launch phploc tool
-	$(TOOLS_EXEC) vendor/bin/phploc src/
-
 phpa: ## Launch PHP assumptions tool
 	$(TOOLS_EXEC) vendor/bin/phpa src/
 
@@ -118,11 +123,20 @@ phpcpd: ## Launch PHP Copy/Past Detector Tool
 phpmnd: ## Laucn PHP Magic Number Detector Tool
 	$(TOOLS_EXEC) vendor/bin/phpmnd src/
 
-phpmetrics: ## Generate a PHPMetrics report
-	$(TOOLS_EXEC) vendor/bin/phpmetrics --report-html=build/metrics src/
-
 psalm: ## Launch Psalm Tool
 	$(TOOLS_EXEC) vendor/bin/psalm --show-info=false
+
+############################
+# Quality Metrics Reporter #
+############################
+
+all-metrics: phpmetrics dephpend-metrics dephpend-dsm dephpend-uml pdepend phploc phpmd
+
+phploc: ## Launch phploc tool
+	$(TOOLS_EXEC) vendor/bin/phploc src/
+
+phpmetrics: ## Generate a PHPMetrics report
+	$(TOOLS_EXEC) vendor/bin/phpmetrics --report-html=build/metrics src/
 
 dephpend-metrics: dephpend ## Launch metrics dephpend
 	docker run --rm -v $(shell pwd)/src:/inspect mihaeu/dephpend:latest metrics /inspect
@@ -130,14 +144,11 @@ dephpend-metrics: dephpend ## Launch metrics dephpend
 dephpend-dsm: dephpend ## Launch DSM dephpend
 	docker run --rm -v $(shell pwd)/src:/inspect mihaeu/dephpend:latest dsm /inspect > build/dephpend/dsm.html
 
-dephpend-uml: dephpend ## Laucn UML dephpend
-	docker run --rm -v $(shell pwd)/build/dephpend/:/output/:rw -v $(shell pwd)/src:/inspect mihaeu/dephpend:latest uml /inspect > /output/uml.png
+dephpend-uml: dephpend ## Launch UML dephpend
+	docker run --rm -v $(shell pwd)/src:/inspect mihaeu/dephpend:latest uml /inspect > build/dephpend/uml.png
 
 dephpend: ## Build dephpend output directory
 	mkdir -p $(shell pwd)/build/dephpend
-
-infection: ## Run mutation testing
-	$(TOOLS_EXEC) phpdbg -qrr vendor/bin/infection
 
 phpmd: ## Launch PHPMD
 	$(TOOLS_EXEC) vendor/bin/phpmd src/ text phpmd.xml

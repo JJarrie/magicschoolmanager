@@ -6,4 +6,10 @@ default:
                 - App\Tests\Behat\Domain\UserContext
 
     extensions:
-        FriendsOfBehat\SymfonyExtension: ~
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: ~
+            kernel:
+                class: ~
+                path: ~
+                environment: test
+                debug: ~
