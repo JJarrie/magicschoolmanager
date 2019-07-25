@@ -122,7 +122,7 @@ phpmetrics: ## Generate a PHPMetrics report
 	$(TOOLS_EXEC) vendor/bin/phpmetrics --report-html=build/metrics src/
 
 psalm: ## Launch Psalm Tool
-	$(TOOLS_EXEC) vendor/bin/psalm
+	$(TOOLS_EXEC) vendor/bin/psalm --show-info=false
 
 dephpend-metrics: dephpend ## Launch metrics dephpend
 	docker run --rm -v $(shell pwd)/src:/inspect mihaeu/dephpend:latest metrics /inspect

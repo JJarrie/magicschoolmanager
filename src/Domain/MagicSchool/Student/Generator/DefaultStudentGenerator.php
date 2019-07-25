@@ -2,7 +2,7 @@
 
 namespace App\Domain\MagicSchool\Student\Generator;
 
-use App\Domain\Generator\IntGenerator;
+use App\Domain\Generator\Int\IntGenerator;
 use App\Domain\MagicSchool\Characteristics\Generator\CharacteristicsGeneratorInterface;
 use App\Domain\MagicSchool\Identity\Generator\IdentityGeneratorInterface;
 use App\Domain\MagicSchool\MagicSchoolConfiguration;

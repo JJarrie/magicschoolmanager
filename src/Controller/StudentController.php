@@ -8,14 +8,17 @@ use App\Domain\MagicSchool\Student\Generator\StudentGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
-class StudentController extends AbstractController
+class StudentController
 {
+    private $twig;
     private $magicSchoolConfiguration;
     private $magicScoolState;
 
-    public function __construct()
+    public function __construct(Environment $twig)
     {
+        $this->twig = $twig;
         $this->magicSchoolConfiguration = new MagicSchoolConfiguration(2019, 11, 7, 1, 9);
         $this->magicScoolState = new MagicSchoolState(1, 8, 6);
     }
@@ -30,7 +33,7 @@ class StudentController extends AbstractController
             $students[] = $studentGenerator->generate($this->magicSchoolConfiguration, $this->magicScoolState);
         }
 
-        return $this->render('student/generateMost.html.twig', ['students' => $students]);
+        return new Response($this->twig->render('student/generateMost.html.twig', ['students' => $students]));
     }
 
     /**
@@ -38,8 +41,10 @@ class StudentController extends AbstractController
      */
     public function generateOne(StudentGeneratorInterface $studentGenerator): Response
     {
-        return $this->render('student/generateOne.html.twig', [
+        $responseContent = $this->twig->render('student/generateOne.html.twig', [
             'student' => $studentGenerator->generate($this->magicSchoolConfiguration, $this->magicScoolState),
         ]);
+
+        return new Response($responseContent);
     }
 }
