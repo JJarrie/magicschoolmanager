@@ -62,7 +62,8 @@ aliases:
     - &csfix
         - checkout
         - *attach_workspace
-        - run: make cs-fix
+        # Not 7.4 compatible ATM
+        # - run: make cs-fix
 
     - &phpa
         - checkout
@@ -158,9 +159,8 @@ workflows:
                   requires: *test_deps
             - "Phan":
                   requires: *test_deps
-            # Not 7.4 compatible ATM
-            #- "CS-Fix":
-            #      requires: *test_deps
+            - "CS-Fix":
+                  requires: *test_deps
             - "PHP Assumptions":
                   requires: *test_deps
             - "PHP Copy/Paste Detector":
