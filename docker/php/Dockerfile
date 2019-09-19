@@ -1,4 +1,4 @@
-FROM php:fpm-alpine
+FROM php:rc-fpm-alpine
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
@@ -10,8 +10,9 @@ RUN apk add --no-cache --virtual .global ca-certificates git wget \
     && apk add --no-cache --virtual .postgres postgresql-dev \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
 
-RUN pecl install ast
-RUN docker-php-ext-enable ast
+# Disable for PHP7.4-alpha3 BC https://github.com/php/php-src/commit/48ca5a1e176c5301fedd1bc4f661969d6f9a49eb#diff-8095b324074c088b219f0af3b0678cc3L1716
+# RUN pecl install ast
+# RUN docker-php-ext-enable ast
 
 RUN docker-php-ext-install intl zip \
     && pecl install apcu-${APCU_VERSION}
@@ -21,14 +22,15 @@ RUN apk del .build-deps
 RUN docker-php-ext-enable apcu opcache
 RUN docker-php-ext-install pdo_pgsql
 
-ENV current_os=alpine
-RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
-    && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/$current_os/amd64/$version \
-    && mkdir -p /tmp/blackfire \
-    && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
-    && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
-    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini \
-    && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
+# Disable for PHP7.4 No-support
+# ENV current_os=alpine
+# RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
+#     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/$current_os/amd64/$version \
+#     && mkdir -p /tmp/blackfire \
+#     && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
+#     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
+#     && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini \
+#     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
 RUN apk add gosu --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted && \
     addgroup bar && \

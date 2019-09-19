@@ -7,36 +7,80 @@ use App\Domain\User\Persister\UserPersisterInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\UserInterface;
 use App\Entity\User;
+use App\Infrastructure\User\DTO\SymfonyUserLogDto;
+use App\Security\LoginFormAuthenticator;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\Assert\Assert;
 
 final class UserContext implements Context
 {
-    /**
-     * @var CreateUserDto
-     */
-    private $createUserInfos;
+    private CreateUserDto $createUserInfos;
 
-    /**
-     * @var UserInterface
-     */
-    private $findedUser;
+    private UserInterface $findedUser;
 
-    /**
-     * @var UserPersisterInterface
-     */
-    private $userPersister;
+    private UserPersisterInterface $userPersister;
 
-    /**
-     * @var UserRepositoryInterface
-     */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct(UserPersisterInterface $userPersister, UserRepositoryInterface $userRepository)
+    private SymfonyUserLogDto $logUserInfos;
+
+    private bool $successfulLogin;
+
+    private CsrfTokenManagerInterface $csrfTokenManager;
+
+    private CsrfToken $csrfToken;
+
+    private LoginFormAuthenticator $authenticator;
+
+    private UserProviderInterface $userProvider;
+
+    private LoggerInterface $logger;
+
+    private UserPasswordEncoderInterface $passwordEncoder;
+
+    public function __construct(UserPersisterInterface $userPersister, UserRepositoryInterface $userRepository, CsrfTokenManagerInterface $csrfTokenManager, LoginFormAuthenticator $authenticator, UserProviderInterface $userProvider, LoggerInterface $logger, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->userPersister = $userPersister;
         $this->userRepository = $userRepository;
+        $this->csrfTokenManager = $csrfTokenManager;
+        $this->authenticator = $authenticator;
+        $this->userProvider = $userProvider;
+        $this->logger = $logger;
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
+    /**
+     * @Given /^the registered users:$/
+     */
+    public function theRegisteredUsers(TableNode $usersInfosTable)
+    {
+        $usersInfosHashColumns = $usersInfosTable->getColumnsHash();
+        foreach ($usersInfosHashColumns as $userInfoHashColumns) {
+            $this->createUserInfos = new CreateUserDto(
+                $userInfoHashColumns['Firstname'],
+                $userInfoHashColumns['Lastname'],
+                $userInfoHashColumns['Username'],
+                '',
+                [$userInfoHashColumns['Role']]
+            );
+            $user = User::createFromCreateDto($this->createUserInfos);
+            $password = $this->passwordEncoder->encodePassword($user, $userInfoHashColumns['Password']);
+            $this->createUserInfos = new CreateUserDto(
+                $userInfoHashColumns['Firstname'],
+                $userInfoHashColumns['Lastname'],
+                $userInfoHashColumns['Username'],
+                $password,
+                [$userInfoHashColumns['Role']]
+            );
+            $user = User::createFromCreateDto($this->createUserInfos);
+            $this->userPersister->save($user);
+        }
     }
 
     /**
@@ -81,5 +125,45 @@ final class UserContext implements Context
         Assert::eq($userInfoHashColumn[0]['Lastname'], $this->findedUser->getLastname());
         Assert::eq($userInfoHashColumn[0]['Username'], $this->findedUser->getUsername());
         Assert::eq([$userInfoHashColumn[0]['Role']], $this->findedUser->getRoles());
+    }
+
+    /**
+     * @Given /^the log's information:$/
+     */
+    public function theLogSInformation(TableNode $userLogInfoTable)
+    {
+        $userLogInfoHashColumn = $userLogInfoTable->getColumnsHash();
+        $this->csrfToken = $this->csrfTokenManager->getToken('authenticate');
+        $this->logUserInfos = new SymfonyUserLogDto($userLogInfoHashColumn[0]['Username'], $userLogInfoHashColumn[0]['Password'], $this->csrfToken->getValue());
+    }
+
+    /**
+     * @When /^I try to login$/
+     */
+    public function iTryToLogin()
+    {
+        try {
+            $user = $this->authenticator->getUser($this->logUserInfos, $this->userProvider);
+            $this->successfulLogin = $this->authenticator->checkCredentials($this->logUserInfos, $user);
+        } catch (\Exception $e) {
+            $this->logger->debug($e->getMessage());
+            $this->successfulLogin = false;
+        }
+    }
+
+    /**
+     * @Then /^I am successed logged$/
+     */
+    public function iAmSuccessedLogged()
+    {
+        Assert::true($this->successfulLogin);
+    }
+
+    /**
+     * @Then /^I am not successed logged$/
+     */
+    public function iAmNotSuccessedLogged()
+    {
+        Assert::false($this->successfulLogin);
     }
 }

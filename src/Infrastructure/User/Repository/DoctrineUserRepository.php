@@ -18,7 +18,7 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
         parent::__construct($registry, User::class);
     }
 
-    public function findOneByUsername(string $username): UserInterface
+    public function findOneByUsername(string $username): ?UserInterface
     {
         return $this->findOneBy(['username' => $username]);
     }

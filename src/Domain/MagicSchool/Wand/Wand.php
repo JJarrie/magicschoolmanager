@@ -4,9 +4,9 @@ namespace App\Domain\MagicSchool\Wand;
 
 class Wand
 {
-    private $essenceWood;
-    private $size;
-    private $hearth;
+    private string $essenceWood;
+    private int $size;
+    private string $hearth;
 
     public function __construct(string $essence, int $size, string $hearth)
     {

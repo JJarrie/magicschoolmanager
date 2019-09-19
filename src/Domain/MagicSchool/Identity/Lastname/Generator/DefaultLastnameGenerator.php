@@ -10,9 +10,9 @@ use App\Domain\MagicSchool\Identity\Lastname\Provider\PureBloodLastnameProvider;
 
 class DefaultLastnameGenerator implements LastnameGeneratorInterface
 {
-    private $arrayGenerator;
-    private $pureBloodLastnameProvider;
-    private $lastNameProvider;
+    private ArrayGenerator $arrayGenerator;
+    private PureBloodLastnameProvider $pureBloodLastnameProvider;
+    private LastNameProviderInterface $lastNameProvider;
 
     public function __construct(ArrayGenerator $arrayGenerator, PureBloodLastnameProvider $pureBloodLastnameProvider, LastNameProviderInterface $lastNameProvider)
     {

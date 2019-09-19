@@ -9,9 +9,9 @@ use App\Domain\MagicSchool\Wand\WandSize\Generator\WandSizeGeneratorInterface;
 
 class DefaultWandGenerator implements WandGeneratorInterface
 {
-    private $essenceWoodGenerator;
-    private $wandHeartGenerator;
-    private $wandSizeGenerator;
+    private EssenceWoodGeneratorInterface $essenceWoodGenerator;
+    private WandHeartGeneratorInterface $wandHeartGenerator;
+    private WandSizeGeneratorInterface $wandSizeGenerator;
 
     public function __construct(EssenceWoodGeneratorInterface $essenceWoodGenerator, WandHeartGeneratorInterface $wandHeartGenerator, WandSizeGeneratorInterface $wandSizeGenerator)
     {

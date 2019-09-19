@@ -8,8 +8,8 @@ use App\Domain\MagicSchool\Identity\Ancestry\Provider\ParentAncestryProviderInte
 
 class FirstGenerationAncestryGenerator implements AncestryGeneratorInterface
 {
-    private $arrayGenerator;
-    private $ancestryProvider;
+    private ArrayGenerator $arrayGenerator;
+    private ParentAncestryProviderInterface $ancestryProvider;
 
     public function __construct(ArrayGenerator $arrayGenerator, ParentAncestryProviderInterface $ancestryProvider)
     {

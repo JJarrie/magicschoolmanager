@@ -4,11 +4,11 @@ namespace App\Domain\MagicSchool;
 
 class MagicSchoolConfiguration
 {
-    private $calendarYearStart;
-    private $firstYearAge;
-    private $nbStudyingYear;
-    private $backToSchoolDay;
-    private $backToSchoolMonth;
+    private int $calendarYearStart;
+    private int $firstYearAge;
+    private int $nbStudyingYear;
+    private int $backToSchoolDay;
+    private int $backToSchoolMonth;
 
     public function __construct(int $calendarYearStart, int $firstYearAge, int $nbStudyingYear, int $backToSchoolDay, int $backToSchoolMonth)
     {

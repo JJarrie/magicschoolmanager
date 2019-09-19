@@ -4,9 +4,9 @@ namespace App\Domain\MagicSchool;
 
 class MagicSchoolState
 {
-    private $currentYear;
-    private $currentCalendarDay;
-    private $currentCalendarMonth;
+    private int $currentYear;
+    private int $currentCalendarDay;
+    private int $currentCalendarMonth;
 
     public function __construct(int $currentYear, int $currentCalendarDay, int $currentCalendarMonth)
     {

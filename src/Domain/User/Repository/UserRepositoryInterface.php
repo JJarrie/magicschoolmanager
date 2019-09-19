@@ -6,5 +6,5 @@ use App\Domain\User\UserInterface;
 
 interface UserRepositoryInterface
 {
-    public function findOneByUsername(string $username): UserInterface;
+    public function findOneByUsername(string $username): ?UserInterface;
 }

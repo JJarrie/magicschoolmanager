@@ -9,7 +9,7 @@ class InMemorySchoolRepository
     /**
      * @var School[]
      */
-    private $innerRepository;
+    private array $innerRepository;
 
     public function __construct()
     {

@@ -20,27 +20,27 @@ class User implements SfUserInterface, UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $username;
+    private string $username;
 
     /**
      * @ORM\Column(type="string", length=180)
      */
-    private $firstname;
+    private string $firstname;
 
     /**
      * @ORM\Column(type="string", length=180)
      */
-    private $lastname;
+    private string $lastname;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles;
+    private array $roles;
 
     /**
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
     private function __construct(string $username, string $firstname, string $lastname, array $roles, string $password)
     {

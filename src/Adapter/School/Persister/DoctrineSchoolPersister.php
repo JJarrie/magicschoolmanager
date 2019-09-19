@@ -4,20 +4,20 @@ namespace App\Adapter\School\Persister;
 
 use App\Domain\School\Persister\SchoolPersisterInterface;
 use App\Domain\School\School;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrineSchoolPersister implements SchoolPersisterInterface
 {
-    private $objectManager;
+    private EntityManagerInterface $entityManager;
 
-    public function __construct(ObjectManager $objectManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->objectManager = $objectManager;
+        $this->entityManager = $entityManager;
     }
 
     public function save(School $school): void
     {
-        $this->objectManager->persist($school);
-        $this->objectManager->flush();
+        $this->entityManager->persist($school);
+        $this->entityManager->flush();
     }
 }

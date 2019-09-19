@@ -7,8 +7,8 @@ use App\Domain\MagicSchool\Identity\Ancestry\Resolver\AncestryResolverInterface;
 
 class DefaultAncestryGenerator implements AncestryGeneratorInterface
 {
-    private $firstGenerationAncestryGenerator;
-    private $ancestryResolver;
+    private FirstGenerationAncestryGenerator $firstGenerationAncestryGenerator;
+    private AncestryResolverInterface $ancestryResolver;
 
     public function __construct(FirstGenerationAncestryGenerator $firstGenerationAncestryGenerator, AncestryResolverInterface $ancestryResolver)
     {

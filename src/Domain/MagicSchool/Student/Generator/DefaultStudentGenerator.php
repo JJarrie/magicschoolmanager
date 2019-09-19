@@ -14,12 +14,12 @@ use App\Domain\MagicSchool\Wand\Generator\WandGeneratorInterface;
 
 class DefaultStudentGenerator implements StudentGeneratorInterface
 {
-    private $identityGenerator;
-    private $intGenerator;
-    private $houseGenerator;
-    private $characteristicsGenerator;
-    private $skillsGenerator;
-    private $wandGenerator;
+    private IdentityGeneratorInterface $identityGenerator;
+    private IntGenerator $intGenerator;
+    private HouseGeneratorInterface $houseGenerator;
+    private CharacteristicsGeneratorInterface $characteristicsGenerator;
+    private SkillGeneratorInterface $skillsGenerator;
+    private WandGeneratorInterface $wandGenerator;
 
     public function __construct(IdentityGeneratorInterface $identityGenerator, IntGenerator $intGenerator, HouseGeneratorInterface $houseGenerator, CharacteristicsGeneratorInterface $characteristicsGenerator, SkillGeneratorInterface $skillGenerator, WandGeneratorInterface $wandGenerator)
     {

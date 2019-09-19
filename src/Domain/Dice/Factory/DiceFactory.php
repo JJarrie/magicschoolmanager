@@ -7,7 +7,7 @@ use App\Domain\Generator\Int\IntGeneratorInterface;
 
 class DiceFactory implements DiceFactoryInterface
 {
-    private $intGenerator;
+    private IntGeneratorInterface $intGenerator;
 
     public function __construct(IntGeneratorInterface $intGenerator)
     {

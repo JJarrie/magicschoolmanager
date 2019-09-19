@@ -4,7 +4,7 @@ namespace App\Domain\Character;
 
 class Character
 {
-    private $name;
+    private string $name;
 
     public function __construct(string $name)
     {

@@ -75,6 +75,8 @@ services:
             - "traefik.enable=false"
         build:
             context: ./docker/tools
+        environment:
+            - COMPOSER_MEMORY_LIMIT=-1
         volumes:
             - ./:/var/app:rw
             - ./docker/tools/php.ini:/usr/local/etc/php/conf.d/php.ini:cached

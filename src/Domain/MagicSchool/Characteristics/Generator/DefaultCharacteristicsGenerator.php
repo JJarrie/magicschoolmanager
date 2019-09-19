@@ -10,7 +10,7 @@ class DefaultCharacteristicsGenerator implements CharacteristicsGeneratorInterfa
 {
     const DEFAULT_AWAKENING_POINTS = 5;
 
-    private $arrayGenerator;
+    private ArrayGenerator $arrayGenerator;
 
     public function __construct(ArrayGenerator $arrayGenerator)
     {

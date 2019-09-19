@@ -10,9 +10,9 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 class DefaultFirstnameGenerator implements FirstnameGeneratorInterface
 {
-    private $arrayGenerator;
-    private $femaleFirstnameProvider;
-    private $maleFirstnameProvider;
+    private ArrayGenerator $arrayGenerator;
+    private FemaleFirstnameProviderInterface $femaleFirstnameProvider;
+    private MaleFirstnameProviderInterface $maleFirstnameProvider;
 
     public function __construct(ArrayGenerator $arrayGenerator, FemaleFirstnameProviderInterface $femaleFirstnameProvider, MaleFirstnameProviderInterface $maleFirstnameProvider)
     {

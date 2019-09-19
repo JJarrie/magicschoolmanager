@@ -6,7 +6,7 @@ use App\Domain\Generator\Int\IntGeneratorInterface;
 
 class DateGenerator implements DateGeneratorInterface
 {
-    private $intGenerator;
+    private IntGeneratorInterface $intGenerator;
 
     public function __construct(IntGeneratorInterface $intGenerator)
     {

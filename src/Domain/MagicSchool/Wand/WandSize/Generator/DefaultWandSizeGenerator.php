@@ -7,8 +7,8 @@ use App\Domain\MagicSchool\Wand\WandSize\Provider\WandSizeProviderInterface;
 
 class DefaultWandSizeGenerator implements WandSizeGeneratorInterface
 {
-    private $arrayGenerator;
-    private $wandSizeProvider;
+    private ArrayGenerator $arrayGenerator;
+    private WandSizeProviderInterface $wandSizeProvider;
 
     public function __construct(ArrayGenerator $arrayGenerator, WandSizeProviderInterface $wandSizeProvider)
     {

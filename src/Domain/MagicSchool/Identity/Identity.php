@@ -6,12 +6,12 @@ use App\Domain\MagicSchool\Identity\Ancestry\Ancestry;
 
 class Identity
 {
-    private $gender;
-    private $firstName;
-    private $lastName;
-    private $birthdayDate;
-    private $ancestry;
-    private $raisingWorld;
+    private string $gender;
+    private string $firstName;
+    private string $lastName;
+    private \DateTimeImmutable $birthdayDate;
+    private Ancestry $ancestry;
+    private string $raisingWorld;
 
     public function __construct(string $gender, string $firstName, string $lastName, \DateTimeImmutable $birthdayDate, Ancestry $ancestry, string $raisingWorld)
     {

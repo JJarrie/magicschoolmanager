@@ -4,7 +4,7 @@ namespace App\Domain\School;
 
 class School
 {
-    private $name;
+    private string $name;
 
     public function __construct(string $name = '')
     {

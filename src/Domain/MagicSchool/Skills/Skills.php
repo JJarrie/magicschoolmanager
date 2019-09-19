@@ -4,18 +4,18 @@ namespace App\Domain\MagicSchool\Skills;
 
 class Skills
 {
-    private $bluff;
-    private $joke;
-    private $tactical;
-    private $rumor;
-    private $decorum;
-    private $discretion;
-    private $persuasion;
-    private $romance;
-    private $fight;
-    private $stamina;
-    private $perception;
-    private $accuracy;
+    private int $bluff;
+    private int $joke;
+    private int $tactical;
+    private int $rumor;
+    private int $decorum;
+    private int $discretion;
+    private int $persuasion;
+    private int $romance;
+    private int $fight;
+    private int $stamina;
+    private int $perception;
+    private int $accuracy;
 
     public function __construct(int $bluff, int $joke, int $tactical, int $rumor, int $decorum, int $discretion, int $persuasion, int $romance, int $fight, int $stamina, int $perception, int $accuracy)
     {

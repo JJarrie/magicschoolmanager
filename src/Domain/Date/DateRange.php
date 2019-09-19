@@ -4,8 +4,8 @@ namespace App\Domain\Date;
 
 class DateRange
 {
-    private $from;
-    private $to;
+    private \DateTimeImmutable $from;
+    private \DateTimeImmutable $to;
 
     public function __construct(\DateTimeImmutable $from, \DateTimeImmutable $to)
     {

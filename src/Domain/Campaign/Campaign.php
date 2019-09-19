@@ -4,7 +4,7 @@ namespace App\Domain\Campaign;
 
 class Campaign
 {
-    private $period;
+    private Period $period;
 
     public function __construct(Period $period)
     {

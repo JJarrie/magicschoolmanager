@@ -9,8 +9,8 @@ use App\Domain\MagicSchool\MagicSchoolState;
 
 class DateRuleRangeResolver
 {
-    private $dateFactory;
-    private $dateRuleResolver;
+    private DateFactory $dateFactory;
+    private DateRuleResolver $dateRuleResolver;
 
     public function __construct(DateFactory $dateFactory, DateRuleResolver $dateRuleResolver)
     {
