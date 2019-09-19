@@ -1,5 +1,4 @@
-FROM php:rc-fpm-alpine
-
+FROM php:rc-fpm-alpine3.10
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 ENV APCU_VERSION 5.1.17
@@ -9,10 +8,6 @@ RUN apk add --no-cache --virtual .global ca-certificates git wget \
     && apk add --no-cache --virtual .intl-deps icu-libs icu-dev \
     && apk add --no-cache --virtual .postgres postgresql-dev \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
-
-# Disable for PHP7.4-alpha3 BC https://github.com/php/php-src/commit/48ca5a1e176c5301fedd1bc4f661969d6f9a49eb#diff-8095b324074c088b219f0af3b0678cc3L1716
-# RUN pecl install ast
-# RUN docker-php-ext-enable ast
 
 RUN docker-php-ext-install intl zip \
     && pecl install apcu-${APCU_VERSION}

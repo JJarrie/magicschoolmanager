@@ -120,6 +120,7 @@ aliases:
         - run: make pdepend
 
     - &deps
+        - "Build Images"
         - "Dependencies"
 
     - &test_deps

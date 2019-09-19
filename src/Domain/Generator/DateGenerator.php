@@ -30,8 +30,6 @@ class DateGenerator implements DateGeneratorInterface
     private function buildDateFromTimestamp(int $timestamp): \DateTimeImmutable
     {
         $date = new \DateTimeImmutable();
-        $date->setTimestamp($timestamp);
-
-        return $date;
+        return $date->setTimestamp($timestamp);
     }
 }

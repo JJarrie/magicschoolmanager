@@ -7,6 +7,7 @@ use App\Infrastructure\User\DTO\SymfonyUserLogDto;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
@@ -45,9 +46,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function getCredentials(Request $request): SymfonyUserLogDto
     {
         $username = $request->request->get('username');
+        $session = $request->getSession();
 
-        if ($request->hasSession()) {
-            $request->getSession()->set(Security::LAST_USERNAME, $username);
+        if ($session instanceof SessionInterface) {
+            $session->set(Security::LAST_USERNAME, $username);
         }
 
         return new SymfonyUserLogDto(
@@ -57,11 +59,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         );
     }
 
-    /**
-     * @param SymfonyUserLogDto $credentials
-     */
     public function getUser($credentials, UserProviderInterface $userProvider): UserInterface
     {
+        /** @var SymfonyUserLogDto $credentials */
         $token = new CsrfToken('authenticate', $credentials->getCsrfTokenValue());
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException('Invalid CsrfToken');
@@ -76,17 +76,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $user;
     }
 
-    /**
-     * @param SymfonyUserLogDto $credentials
-     */
     public function checkCredentials($credentials, UserInterface $user): bool
     {
+        /** @var SymfonyUserLogDto $credentials */
         return $this->passwordEncoder->isPasswordValid($user, $credentials->getPassword());
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): Response
     {
-        $targetPath = $request->hasSession() ? $this->getTargetPath($request->getSession(), $providerKey) : null;
+        $session = $request->getSession();
+        $targetPath = ($session instanceof SessionInterface) ? $this->getTargetPath($session, $providerKey) : null;
 
         if (is_string($targetPath)) {
             return new RedirectResponse($targetPath);
