@@ -120,8 +120,10 @@ aliases:
         - *attach_workspace
         - run: make pdepend
 
-    - &deps
+    - &build
         - "Build Images"
+
+    - &dependencies
         - "Dependencies"
 
     - &test_deps
@@ -148,13 +150,14 @@ workflows:
     master:
         jobs:
             - "Build Images"
-            - "Dependencies"
+            - "Dependencies":
+                  requires: *build
             - "PHPUnit":
-                  requires: *deps
+                  requires: *dependencies
             - "Behat":
-                  requires: *deps
+                  requires: *dependencies
             - "Infection":
-                  requires: *deps
+                  requires: *dependencies
             - "PHPStan":
                   requires: *test_deps
             - "Phan":
