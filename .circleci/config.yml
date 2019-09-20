@@ -123,7 +123,7 @@ aliases:
     - &build
         - "Build Images"
 
-    - &dependencies
+    - &deps
         - "Dependencies"
 
     - &test_deps
@@ -153,11 +153,11 @@ workflows:
             - "Dependencies":
                   requires: *build
             - "PHPUnit":
-                  requires: *dependencies
+                  requires: *deps
             - "Behat":
-                  requires: *dependencies
+                  requires: *deps
             - "Infection":
-                  requires: *dependencies
+                  requires: *deps
             - "PHPStan":
                   requires: *test_deps
             - "Phan":
