@@ -1,6 +1,7 @@
 /data/
 /logs/
 /build/
+/docker-compose.override.yml
 
 ###> symfony/framework-bundle ###
 /.env.local
