@@ -4,10 +4,10 @@ namespace App\Domain\MagicSchool\Characteristics;
 
 class Characteristics
 {
-    private $heart;
-    private $body;
-    private $spirit;
-    private $magic;
+    private int $heart;
+    private int $body;
+    private int $spirit;
+    private int $magic;
 
     public function __construct(int $heart, int $body, int $spirit, int $magic)
     {

@@ -7,8 +7,8 @@ use App\Domain\MagicSchool\Identity\Gender\Provider\GenderProviderInterface;
 
 class DefaultGenderGenerator implements GenderGeneratorInterface
 {
-    private $arrayGenerator;
-    private $genderProvider;
+    private ArrayGenerator $arrayGenerator;
+    private GenderProviderInterface $genderProvider;
 
     public function __construct(ArrayGenerator $arrayGenerator, GenderProviderInterface $genderProvider)
     {

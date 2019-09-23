@@ -9,12 +9,12 @@ use App\Domain\MagicSchool\Wand\Wand;
 
 class Student
 {
-    private $identity;
-    private $currentYear;
-    private $house;
-    private $characteristics;
-    private $skills;
-    private $wand;
+    private Identity $identity;
+    private int $currentYear;
+    private string $house;
+    private Characteristics $characteristics;
+    private Skills $skills;
+    private Wand $wand;
 
     public function __construct(Identity $identity, int $currentYear, string $house, Characteristics $characteristics, Skills $skills, Wand $wand)
     {

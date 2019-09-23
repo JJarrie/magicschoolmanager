@@ -11,9 +11,9 @@ use Twig\Environment;
 
 class StudentController
 {
-    private $twig;
-    private $magicSchoolConfiguration;
-    private $magicScoolState;
+    private Environment $twig;
+    private MagicSchoolConfiguration $magicSchoolConfiguration;
+    private MagicSchoolState $magicScoolState;
 
     public function __construct(Environment $twig)
     {

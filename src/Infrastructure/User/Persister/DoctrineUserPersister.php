@@ -4,20 +4,20 @@ namespace App\Infrastructure\User\Persister;
 
 use App\Domain\User\Persister\UserPersisterInterface;
 use App\Domain\User\UserInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrineUserPersister implements UserPersisterInterface
 {
-    private $objectManager;
+    private EntityManagerInterface $entityManager;
 
-    public function __construct(ObjectManager $objectManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->objectManager = $objectManager;
+        $this->entityManager = $entityManager;
     }
 
     public function save(UserInterface $user): void
     {
-        $this->objectManager->persist($user);
-        $this->objectManager->flush();
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
     }
 }

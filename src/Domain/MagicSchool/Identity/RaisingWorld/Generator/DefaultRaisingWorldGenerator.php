@@ -7,8 +7,8 @@ use App\Domain\MagicSchool\Identity\RaisingWorld\Provider\RaisingWorldProviderIn
 
 class DefaultRaisingWorldGenerator implements RaisingWorldGeneratorInterface
 {
-    private $arrayGenerator;
-    private $raisingWorldProvider;
+    private ArrayGenerator $arrayGenerator;
+    private RaisingWorldProviderInterface $raisingWorldProvider;
 
     public function __construct(ArrayGenerator $arrayGenerator, RaisingWorldProviderInterface $raisingWorldProvider)
     {

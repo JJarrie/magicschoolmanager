@@ -7,8 +7,8 @@ use App\Domain\MagicSchool\Wand\WandHeart\Provider\WandHeartProviderInterface;
 
 class DefaultWandHeartGenerator implements WandHeartGeneratorInterface
 {
-    private $arrayGenerator;
-    private $wandHeartProvider;
+    private ArrayGenerator $arrayGenerator;
+    private WandHeartProviderInterface $wandHeartProvider;
 
     public function __construct(ArrayGenerator $arrayGenerator, WandHeartProviderInterface $wandHeartProvider)
     {

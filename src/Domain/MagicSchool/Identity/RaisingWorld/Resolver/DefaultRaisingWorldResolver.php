@@ -9,7 +9,7 @@ use App\Domain\MagicSchool\RaisingWorldConstant;
 
 class DefaultRaisingWorldResolver implements RaisingWorldResolverInterface
 {
-    private $raisingWorldGenerator;
+    private RaisingWorldGeneratorInterface $raisingWorldGenerator;
 
     public function __construct(RaisingWorldGeneratorInterface $raisingWorldGenerator)
     {

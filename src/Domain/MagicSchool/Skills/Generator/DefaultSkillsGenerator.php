@@ -11,8 +11,8 @@ use App\Domain\SkillConstant;
 
 class DefaultSkillsGenerator implements SkillGeneratorInterface
 {
-    private $skillCharacteristicMapping;
-    private $arrayGenerator;
+    private SkillCharacteristicsMapping $skillCharacteristicMapping;
+    private ArrayGenerator $arrayGenerator;
 
     public function __construct(SkillCharacteristicsMapping $skillCharacteristicMapping, ArrayGenerator $arrayGenerator)
     {
@@ -69,7 +69,7 @@ class DefaultSkillsGenerator implements SkillGeneratorInterface
                 $skills->incrementRomance();
                 break;
             case SkillConstant::FIGHT:
-                $skills->incrementBluff();
+                $skills->incrementFight();
                 break;
             case SkillConstant::STAMINA:
                 $skills->incrementStamina();

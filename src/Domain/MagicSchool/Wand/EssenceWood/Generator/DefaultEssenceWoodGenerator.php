@@ -7,8 +7,8 @@ use App\Domain\MagicSchool\Wand\EssenceWood\Provider\EssenceWoodProviderInterfac
 
 class DefaultEssenceWoodGenerator implements EssenceWoodGeneratorInterface
 {
-    private $arrayGenerator;
-    private $essenceWoodProvider;
+    private ArrayGenerator $arrayGenerator;
+    private EssenceWoodProviderInterface $essenceWoodProvider;
 
     public function __construct(ArrayGenerator $arrayGenerator, EssenceWoodProviderInterface $essenceWoodProvider)
     {

@@ -7,8 +7,8 @@ namespace App\Domain\Ancestry;
  */
 class Ancestry
 {
-    private $name;
-    private $breedingWorld;
+    private string $name;
+    private string $breedingWorld;
 
     public function __construct(string $name, string $breedingWorld)
     {

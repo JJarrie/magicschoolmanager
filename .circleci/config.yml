@@ -62,7 +62,8 @@ aliases:
     - &csfix
         - checkout
         - *attach_workspace
-        - run: make cs-fix
+        # Not 7.4 compatible ATM
+        # - run: make cs-fix
 
     - &phpa
         - checkout
@@ -119,6 +120,9 @@ aliases:
         - *attach_workspace
         - run: make pdepend
 
+    - &build
+        - "Build Images"
+
     - &deps
         - "Dependencies"
 
@@ -146,7 +150,8 @@ workflows:
     master:
         jobs:
             - "Build Images"
-            - "Dependencies"
+            - "Dependencies":
+                  requires: *build
             - "PHPUnit":
                   requires: *deps
             - "Behat":

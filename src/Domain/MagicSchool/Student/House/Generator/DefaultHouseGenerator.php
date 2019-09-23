@@ -9,8 +9,8 @@ use App\Domain\MagicSchool\Student\House\Provider\HouseProviderInterface;
 
 class DefaultHouseGenerator implements HouseGeneratorInterface
 {
-    private $arrayGenerator;
-    private $houseProvider;
+    private ArrayGenerator $arrayGenerator;
+    private HouseProviderInterface $houseProvider;
 
     public function __construct(ArrayGenerator $arrayGenerator, HouseProviderInterface $houseProvider)
     {

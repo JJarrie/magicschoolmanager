@@ -6,8 +6,8 @@ use App\Domain\Generator\Int\IntGeneratorInterface;
 
 class Dice
 {
-    private $intGenerator;
-    private $faces;
+    private IntGeneratorInterface $intGenerator;
+    private int $faces;
 
     public function __construct(IntGeneratorInterface $intGenerator, int $faces)
     {

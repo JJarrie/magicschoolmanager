@@ -1,13 +1,11 @@
-DOCKER_COMPOSE=docker-compose
-PHP_EXEC=$(DOCKER_COMPOSE) exec -T php /entrypoint
-TOOLS_EXEC=$(DOCKER_COMPOSE) run --rm tools
-JS_EXEC=$(DOCKER_COMPOSE) exec -T node /entrypoint
+PHP_EXEC=@docker-compose exec -T php /entrypoint
+TOOLS_EXEC=@docker-compose run --rm tools
+JS_EXEC=@docker-compose exec -T node /entrypoint
 SYMFONY_CONSOLE=$(PHP_EXEC) bin/console
 COMPOSER=$(PHP_EXEC) composer
 YARN=$(JS_EXEC) yarn
 
 .DEFAULT_GOAL := help
-.PHONY: help build start stop db-create db-drop migration-generation migration-launch
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -16,21 +14,27 @@ help:
 # General #
 ###########
 
-build: ## Build the project
-	$(DOCKER_COMPOSE) build
+.PHONY: build up start stop
 
-start: ## Start the project
-	$(DOCKER_COMPOSE) up -d --remove-orphans --no-recreate
+build: ## Build the project
+	@docker-compose build
+
+up: ## Up the containers
+	@docker-compose up -d --remove-orphans --no-recreate
+
+start: build up dependencies db-create migration-launch fixture-load front-dependency-install front-compile ## Start the project
 
 stop: ## Stop the project
-	$(DOCKER_COMPOSE) down --remove-orphans --volumes
+	@docker-compose down --remove-orphans --volumes
 
 ############
 # Database #
 ############
 
+.PHONY: db-create db-drop
+
 db-create: ## Create the database
-	$(SYMFONY_CONSOLE) doctrine:database:create
+	$(SYMFONY_CONSOLE) doctrine:database:create --if-not-exists
 
 db-drop: ## Drop the database
 	$(SYMFONY_CONSOLE) doctrine:database:drop --force
@@ -39,15 +43,22 @@ db-drop: ## Drop the database
 # Dependencies #
 ################
 
+.PHONY: dependencies dependencies-upgrade symfony-upgrade
+
 dependencies: composer.lock ## Install PHP Dependencies
 	$(TOOLS_EXEC) composer install
 
 dependencies-upgrade: ## Upgrade PHP Dependencies
-	$(TOOLS_EXEC) COMPOSER_MEMORY_LIMIT=-1 composer update
+	$(TOOLS_EXEC) composer update
+
+symfony-upgrade: ## Upgrade Symfony version
+	$(TOOLS_EXEC) composer update "symfony/*" --with-all-dependencies
 
 #######################
 # Database migrations #
 #######################
+
+.PHONY: migration-generation migration-launch
 
 migration-generation: ## Prepare the migrations files
 	$(SYMFONY_CONSOLE) make:migration
@@ -59,12 +70,16 @@ migration-launch: ## Launch the migration
 # Fixtures #
 ############
 
+.PHONY: fixture-load
+
 fixture-load: ## Load the fixtures
 	$(SYMFONY_CONSOLE) doctrine:fixture:load
 
 #########
 # Front #
 #########
+
+.PHONY: front-compile front-watch front-compile-production front-dependency-install front-dependency-upgrade
 
 front-compile: ## Compile fronts assets
 	$(YARN) dev
@@ -85,15 +100,22 @@ front-dependency-upgrade: ## Upgrade the front dependency
 # Test #
 ########
 
+.PHONY: all-tests phpunit behat behat-verbose infection
+
 all-tests: phpunit behat infection ## Start all tests
 
 phpunit: ## Start units tests
 	$(TOOLS_EXEC) vendor/bin/simple-phpunit
 
 behat: ## Start behats tests
-	$(TOOLS_EXEC) bin/console doctrine:database:create --env=test
+	$(TOOLS_EXEC) bin/console doctrine:schema:create --env=test
 	$(TOOLS_EXEC) bin/console doctrine:schema:update --force --env=test
 	$(TOOLS_EXEC) vendor/bin/behat
+
+behat-verbose: ### Start behats tests (Verbose mode)
+	$(TOOLS_EXEC) bin/console doctrine:schema:create --env=test
+	$(TOOLS_EXEC) bin/console doctrine:schema:update --force --env=test
+	$(TOOLS_EXEC) vendor/bin/behat -vvv
 	$(TOOLS_EXEC) bin/console doctrine:database:drop --force --env=test
 
 infection: ## Run mutation testing
@@ -102,6 +124,8 @@ infection: ## Run mutation testing
 ####################
 # Quality Analysis #
 ####################
+
+.PHONY: all-qa phpstan phan cs-fix phpa phpcpd phpmnd psalm
 
 all-qa: cs-fix phpstan phan phpa phpcpd phpmnd psalm
 
@@ -120,7 +144,7 @@ phpa: ## Launch PHP assumptions tool
 phpcpd: ## Launch PHP Copy/Past Detector Tool
 	$(TOOLS_EXEC) vendor/bin/phpcpd src/
 
-phpmnd: ## Laucn PHP Magic Number Detector Tool
+phpmnd: ## Launch PHP Magic Number Detector Tool
 	$(TOOLS_EXEC) vendor/bin/phpmnd src/
 
 psalm: ## Launch Psalm Tool
@@ -129,6 +153,8 @@ psalm: ## Launch Psalm Tool
 ############################
 # Quality Metrics Reporter #
 ############################
+
+.PHONY: all-metrics phploc phpmetrics dephpend-metrics dephpend-dsm dephpend-uml dephpend phpmd pdepend
 
 all-metrics: phpmetrics dephpend-metrics dephpend-dsm dephpend-uml pdepend phploc phpmd
 
@@ -139,19 +165,28 @@ phpmetrics: ## Generate a PHPMetrics report
 	$(TOOLS_EXEC) vendor/bin/phpmetrics --report-html=build/metrics src/
 
 dephpend-metrics: dephpend ## Launch metrics dephpend
-	docker run --rm -v $(shell pwd)/src:/inspect mihaeu/dephpend:latest metrics /inspect
+	docker run --rm -v $(CURDIR)/src:/inspect mihaeu/dephpend:latest metrics /inspect
 
 dephpend-dsm: dephpend ## Launch DSM dephpend
-	docker run --rm -v $(shell pwd)/src:/inspect mihaeu/dephpend:latest dsm /inspect > build/dephpend/dsm.html
+	docker run --rm -v $(CURDIR)/src:/inspect mihaeu/dephpend:latest dsm /inspect > build/dephpend/dsm.html
 
 dephpend-uml: dephpend ## Launch UML dephpend
-	docker run --rm -v $(shell pwd)/src:/inspect mihaeu/dephpend:latest uml /inspect > build/dephpend/uml.png
+	docker run --rm -v $(CURDIR)/src:/inspect mihaeu/dephpend:latest uml /inspect > build/dephpend/uml.png
 
 dephpend: ## Build dephpend output directory
-	mkdir -p $(shell pwd)/build/dephpend
+	mkdir -p $(CURDIR)/build/dephpend
 
 phpmd: ## Launch PHPMD
 	$(TOOLS_EXEC) vendor/bin/phpmd --ignore-violations-on-exit src/ text phpmd.xml
 
 pdepend: ## Launch PDepend
 	$(TOOLS_EXEC) vendor/bin/pdepend --summary-xml=build/pdepend/summary.xml --jdepend-chart=build/pdepend/jdepend.svg --overview-pyramid=build/pdepend/pyramid.svg src/
+
+###########
+# Symfony #
+###########
+
+.PHONY: cc
+
+cc: ## Clear Symfony's cache
+	$(SYMFONY_CONSOLE) cache:clear

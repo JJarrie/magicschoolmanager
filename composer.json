@@ -2,7 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-intl": "*",
@@ -74,7 +74,7 @@
         "dephpend/dephpend": "^0.6.0",
         "drenso/phan-extensions": "^2.5",
         "friends-of-behat/symfony-extension": "^2.0",
-        "friendsofphp/php-cs-fixer": "^2.14",
+        "friendsofphp/php-cs-fixer": "^2.15",
         "infection/infection": "^0.13.4",
         "pdepend/pdepend": "^2.5",
         "phan/phan": "^2.2",

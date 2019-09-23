@@ -4,9 +4,9 @@ namespace App\Domain\MagicSchool\Identity\Ancestry;
 
 class Ancestry
 {
-    private $ancestry;
-    private $motherAncestry;
-    private $fatherAncestry;
+    private string $ancestry;
+    private ?Ancestry $motherAncestry;
+    private ?Ancestry $fatherAncestry;
 
     public function __construct(string $ancestry, ?Ancestry $motherAncestry = null, ?Ancestry $fatherAncestry = null)
     {

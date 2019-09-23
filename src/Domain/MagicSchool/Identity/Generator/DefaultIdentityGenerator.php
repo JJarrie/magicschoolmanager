@@ -15,13 +15,13 @@ use App\Domain\MagicSchool\MagicSchoolState;
 
 class DefaultIdentityGenerator implements IdentityGeneratorInterface
 {
-    private $genderGenerator;
-    private $firstnameGenerator;
-    private $lastnameGenerator;
-    private $ancestryGenerator;
-    private $raisingWorldResolver;
-    private $dateGenerator;
-    private $dateRuleRangeResolver;
+    private GenderGeneratorInterface $genderGenerator;
+    private FirstnameGeneratorInterface $firstnameGenerator;
+    private LastnameGeneratorInterface $lastnameGenerator;
+    private AncestryGeneratorInterface $ancestryGenerator;
+    private RaisingWorldResolverInterface $raisingWorldResolver;
+    private DateGeneratorInterface $dateGenerator;
+    private DateRuleRangeResolver $dateRuleRangeResolver;
 
     public function __construct(GenderGeneratorInterface $genderGenerator, FirstnameGeneratorInterface $firstnameGenerator, LastnameGeneratorInterface $lastnameGenerator, AncestryGeneratorInterface $ancestryGenerator, RaisingWorldResolverInterface $raisingWorldResolver, DateGeneratorInterface $dateGenerator, DateRuleRangeResolver $dateRuleRangeResolver)
     {

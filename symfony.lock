@@ -174,9 +174,6 @@
     "jean85/pretty-package-versions": {
         "version": "1.2"
     },
-    "jetbrains/phpstorm-stubs": {
-        "version": "v2019.1"
-    },
     "justinrainbow/json-schema": {
         "version": "5.2.8"
     },
@@ -263,6 +260,9 @@
     },
     "phpstan/phpstan": {
         "version": "0.11.8"
+    },
+    "phpstan/phpstan-phpunit": {
+        "version": "0.11.2"
     },
     "phpunit/php-timer": {
         "version": "2.1.2"
