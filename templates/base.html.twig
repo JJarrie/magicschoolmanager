@@ -8,11 +8,13 @@
 </head>
 <body>
 
-{% include 'navbar.html.twig' %}
+{#{% include 'navbar.html.twig' %}#}
 
-<div class="container">
-    {% block body %}{% endblock %}
-</div>
+<section class="section">
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+</section>
 
 {{ encore_entry_script_tags('js/vendor') }}
 {{ encore_entry_script_tags('js/app') }}

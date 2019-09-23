@@ -20,5 +20,6 @@ security:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
     access_control:
+        - { path: ^/student/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }
