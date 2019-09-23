@@ -1,0 +1,58 @@
+version: '3.2'
+
+services:
+    traefik:
+        image: traefik:latest
+        command: --api --docker
+        ports:
+            - 80:80
+            - 8080:8080
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+
+    database:
+        environment:
+            POSTGRES_PASSWORD: admin
+
+    http:
+        labels:
+            - "traefik.frontend.rule=Host:magicschoolmanager.docker.localhost"
+
+    adminer:
+        image: adminer:latest
+        labels:
+            - "traefik.port=8080"
+            - "traefik.frontend.rule=Host:db.msm.docker.localhost"
+
+    blackfire:
+        image: blackfire/blackfire
+        labels:
+            - "traefik.enable=false"
+        environment:
+            BLACKFIRE_CLIENT_ID:
+            BLACKFIRE_CLIENT_TOKEN:
+            BLACKFIRE_SERVER_ID:
+            BLACKFIRE_SERVER_TOKEN:
+
+    php:
+        links:
+            - blackfire
+        labels:
+            - "traefik.enable=false"
+        environment:
+            BLACKFIRE_CLIENT_ID:
+            BLACKFIRE_CLIENT_TOKEN:
+            BLACKFIRE_SERVER_ID:
+            BLACKFIRE_SERVER_TOKEN:
+
+    tools:
+        labels:
+            - "traefik.enable=false"
+        volumes:
+            - ~/.composer:/var/www/.composer
+
+    node:
+        labels:
+            - "traefik.enable=false"
+        volumes:
+            - ~/.npm:/home/.npm
