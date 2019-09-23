@@ -165,16 +165,16 @@ phpmetrics: ## Generate a PHPMetrics report
 	$(TOOLS_EXEC) vendor/bin/phpmetrics --report-html=build/metrics src/
 
 dephpend-metrics: dephpend ## Launch metrics dephpend
-	docker run --rm -v $(CURRENT_DIR)/src:/inspect mihaeu/dephpend:latest metrics /inspect
+	docker run --rm -v $(CURDIR)/src:/inspect mihaeu/dephpend:latest metrics /inspect
 
 dephpend-dsm: dephpend ## Launch DSM dephpend
-	docker run --rm -v $(CURRENT_DIR)/src:/inspect mihaeu/dephpend:latest dsm /inspect > build/dephpend/dsm.html
+	docker run --rm -v $(CURDIR)/src:/inspect mihaeu/dephpend:latest dsm /inspect > build/dephpend/dsm.html
 
 dephpend-uml: dephpend ## Launch UML dephpend
-	docker run --rm -v $(CURRENT_DIR)/src:/inspect mihaeu/dephpend:latest uml /inspect > build/dephpend/uml.png
+	docker run --rm -v $(CURDIR)/src:/inspect mihaeu/dephpend:latest uml /inspect > build/dephpend/uml.png
 
 dephpend: ## Build dephpend output directory
-	mkdir -p $(CURRENT_DIR)/build/dephpend
+	mkdir -p $(CURDIR)/build/dephpend
 
 phpmd: ## Launch PHPMD
 	$(TOOLS_EXEC) vendor/bin/phpmd --ignore-violations-on-exit src/ text phpmd.xml
