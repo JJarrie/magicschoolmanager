@@ -144,7 +144,7 @@ phpa: ## Launch PHP assumptions tool
 phpcpd: ## Launch PHP Copy/Past Detector Tool
 	$(TOOLS_EXEC) vendor/bin/phpcpd src/
 
-phpmnd: ## Laucn PHP Magic Number Detector Tool
+phpmnd: ## Launch PHP Magic Number Detector Tool
 	$(TOOLS_EXEC) vendor/bin/phpmnd src/
 
 psalm: ## Launch Psalm Tool
@@ -185,6 +185,8 @@ pdepend: ## Launch PDepend
 ###########
 # Symfony #
 ###########
+
+.PHONY: cc
 
 cc: ## Clear Symfony's cache
 	$(SYMFONY_CONSOLE) cache:clear
