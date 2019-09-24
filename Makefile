@@ -24,7 +24,6 @@ up: ## Up the containers
 
 start: build up dependencies db-create migration-launch fixture-load front-dependency-install front-compile ## Start the project
 
-
 stop: ## Stop the project
 	@docker-compose down --remove-orphans --volumes
 
