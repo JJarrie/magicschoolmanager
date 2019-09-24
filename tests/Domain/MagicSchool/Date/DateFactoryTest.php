@@ -11,7 +11,7 @@ class DateFactoryTest extends TestCase
     /**
      * @var DateFactory
      */
-    private $dateFactory;
+    private DateFactory $dateFactory;
 
     protected function setUp(): void
     {

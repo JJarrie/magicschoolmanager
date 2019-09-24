@@ -136,7 +136,8 @@ phan: ## Launch Phan tool
 	$(TOOLS_EXEC) vendor/bin/phan
 
 cs-fix: ## Launch php-cs-fixer on src directory
-	$(TOOLS_EXEC) vendor/bin/php-cs-fixer fix src/
+	# Temporary disable because not 7.4 compatible
+	# $(TOOLS_EXEC) vendor/bin/php-cs-fixer fix src/
 
 phpa: ## Launch PHP assumptions tool
 	$(TOOLS_EXEC) vendor/bin/phpa src/

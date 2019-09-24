@@ -43,4 +43,29 @@ class MagicSchoolConfiguration
     {
         return $this->backToSchoolMonth;
     }
+
+    public function setCalendarYearStart(int $calendarYearStart): void
+    {
+        $this->calendarYearStart = $calendarYearStart;
+    }
+
+    public function setFirstYearAge(int $firstYearAge): void
+    {
+        $this->firstYearAge = $firstYearAge;
+    }
+
+    public function setNbStudyingYear(int $nbStudyingYear): void
+    {
+        $this->nbStudyingYear = $nbStudyingYear;
+    }
+
+    public function setBackToSchoolDay(int $backToSchoolDay): void
+    {
+        $this->backToSchoolDay = $backToSchoolDay;
+    }
+
+    public function setBackToSchoolMonth(int $backToSchoolMonth): void
+    {
+        $this->backToSchoolMonth = $backToSchoolMonth;
+    }
 }
