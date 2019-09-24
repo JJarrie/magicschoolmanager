@@ -29,4 +29,19 @@ class MagicSchoolState
     {
         return $this->currentCalendarMonth;
     }
+
+    public function setCurrentYear(int $currentYear): void
+    {
+        $this->currentYear = $currentYear;
+    }
+
+    public function setCurrentCalendarDay(int $currentCalendarDay): void
+    {
+        $this->currentCalendarDay = $currentCalendarDay;
+    }
+
+    public function setCurrentCalendarMonth(int $currentCalendarMonth): void
+    {
+        $this->currentCalendarMonth = $currentCalendarMonth;
+    }
 }
