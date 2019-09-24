@@ -133,7 +133,7 @@ phpstan: ## Launch PHPStan tool
 	$(TOOLS_EXEC) vendor/bin/phpstan analyse src/ --level 7
 
 phan: ## Launch Phan tool
-	$(TOOLS_EXEC) vendor/bin/phan
+	$(TOOLS_EXEC) vendor/bin/phan --allow-polyfill-parser
 
 cs-fix: ## Launch php-cs-fixer on src directory
 	# Temporary disable because not 7.4 compatible
