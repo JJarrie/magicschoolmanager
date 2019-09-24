@@ -1,45 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-
         {{ form_start(generationForm) }}
             <div class="form-row">
-                <div class="col">
+                <div class="col-6 col-sm">
                     {{ form_row(generationForm.schoolConfiguration.calendarYearStart) }}
                 </div>
-                <div class="col">
+                <div class="col-6 col-sm">
                     {{ form_row(generationForm.schoolConfiguration.firstYearAge) }}
                 </div>
-                <div class="col">
+                <div class="col-6 col-sm">
                     {{ form_row(generationForm.schoolConfiguration.nbStudyingYear) }}
                 </div>
-                <div class="col">
+                <div class="col-6 col-sm">
                     {{ form_row(generationForm.schoolConfiguration.backToSchoolDay) }}
                 </div>
-                <div class="col">
+                <div class="col-6 col-sm">
                     {{ form_row(generationForm.schoolConfiguration.backToSchoolMonth) }}
                 </div>
             </div>
-        <div class="form-row">
-            <div class="col">
-                {{ form_row(generationForm.schoolState.currentYear) }}
+            <div class="form-row">
+                <div class="col-6 col-sm">
+                    {{ form_row(generationForm.schoolState.currentYear) }}
+                </div>
+                <div class="col-6 col-sm">
+                    {{ form_row(generationForm.schoolState.currentCalendarMonth) }}
+                </div>
+                <div class="col-6 col-sm">
+                    {{ form_row(generationForm.schoolState.currentCalendarDay) }}
+                </div>
             </div>
-            <div class="col">
-                {{ form_row(generationForm.schoolState.currentCalendarMonth) }}
-            </div>
-            <div class="col">
-                {{ form_row(generationForm.schoolState.currentCalendarDay) }}
-            </div>
-        </div>
         {{ form_end(generationForm) }}
 
         <div class="row">
             {% for student in students %}
-                <div class="col-4">
+                <div class="col col-sm-6">
                     {% include 'student/sheet.html.twig' with {'student': student} only %}
                 </div>
             {% endfor %}
         </div>
-    </div>
 {% endblock %}
