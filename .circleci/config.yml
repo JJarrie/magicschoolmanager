@@ -10,11 +10,6 @@ aliases:
         paths:
             - ~/data/vendor
 
-    - &build_images
-        - checkout
-        - run: make build
-        - run: make start
-
     - &attach_workspace
         attach_workspace:
             at: ~/data
@@ -152,9 +147,11 @@ workflows:
                   requires: *qa_deps
 
 jobs:
-    "Build Images":
-        <<: *build_environment
-        steps: *build_images
+    build:
+        docker:
+            - image: cimg/php:8.0.3-node
+        steps:
+            - checkout
     "Dependencies":
         <<: *build_environment
         steps: *dependencies
