@@ -70,11 +70,6 @@ aliases:
         - *attach_workspace
         - run: make phpa
 
-    - &phpcpd
-        - checkout
-        - *attach_workspace
-        - run: make phpcpd
-
     - &phpmnd
         - checkout
         - *attach_workspace
@@ -90,30 +85,10 @@ aliases:
         - *attach_workspace
         - run: make phpmd
 
-    - &dephpend_metrics
-        - checkout
-        - *attach_workspace
-        - run: make dephpend-metrics
-
-    - &dephpend_uml
-        - checkout
-        - *attach_workspace
-        - run: make dephpend-uml
-
-    - &dephpend_dsm
-        - checkout
-        - *attach_workspace
-        - run: make dephpend-dsm
-
     - &phpmetrics
         - checkout
         - *attach_workspace
         - run: make phpmetrics
-
-    - &phploc
-        - checkout
-        - *attach_workspace
-        - run: make phploc
 
     - &pdepend
         - checkout
@@ -166,23 +141,13 @@ workflows:
                   requires: *test_deps
             - "PHP Assumptions":
                   requires: *test_deps
-            - "PHP Copy/Paste Detector":
-                  requires: *test_deps
             - "PHP Magic Number Detector":
                   requires: *test_deps
             - "Psalm":
                   requires: *test_deps
             - "PHP MD":
                   requires: *qa_deps
-            - "Dephpend Metrics":
-                  requires: *qa_deps
-            - "Dephpend UML":
-                  requires: *qa_deps
-            - "Dephpend DSM":
-                  requires: *qa_deps
             - "PHP Metrics":
-                  requires: *qa_deps
-            - "PHP Loc":
                   requires: *qa_deps
             - "PDepend":
                   requires: *qa_deps
@@ -215,9 +180,6 @@ jobs:
     "PHP Assumptions":
         <<: *build_environment
         steps: *phpa
-    "PHP Copy/Paste Detector":
-        <<: *build_environment
-        steps: *phpcpd
     "PHP Magic Number Detector":
         <<: *build_environment
         steps: *phpmnd
@@ -227,21 +189,9 @@ jobs:
     "PHP MD":
         <<: *build_environment
         steps: *phpmd
-    "Dephpend Metrics":
-        <<: *build_environment
-        steps: *dephpend_metrics
-    "Dephpend UML":
-        <<: *build_environment
-        steps: *dephpend_uml
-    "Dephpend DSM":
-        <<: *build_environment
-        steps: *dephpend_dsm
     "PHP Metrics":
         <<: *build_environment
         steps: *phpmetrics
-    "PHP Loc":
-        <<: *build_environment
-        steps: *phploc
     "PDepend":
         <<: *build_environment
         steps: *pdepend
