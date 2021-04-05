@@ -111,7 +111,6 @@ aliases:
         - "Phan"
         - "CS-Fix"
         - "PHP Assumptions"
-        - "PHP Copy/Paste Detector"
         - "PHP Magic Number Detector"
         - "Psalm"
 
