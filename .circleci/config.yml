@@ -6,6 +6,7 @@ jobs:
             - image: cimg/php:8.0.3-node
         steps:
             - checkout
+            - run: sudo apt install -y php8.0-intl
             - restore_cache:
                 keys:
                     - composer-v1-{{ checksum "composer.lock" }}
