@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-    "Build Images":
+    build:
         docker:
             - image: cimg/php:8.0.3-node
         steps:
