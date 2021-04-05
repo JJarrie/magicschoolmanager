@@ -3,6 +3,7 @@
     "description": "Managing system for magic school",
     "type": "project",
     "license": "proprietary",
+    "minimum-stability": "stable",
     "require": {
         "php": "^8.0",
         "ext-ctype": "*",
@@ -10,7 +11,6 @@
         "ext-intl": "*",
         "ext-zip": "*",
         "doctrine/doctrine-fixtures-bundle": "^3.1",
-        "phps-cans/quote-strategy.doctrine.escaping": "1.0.x-dev",
         "ramsey/uuid-doctrine": "^1.5",
         "symfony/console": "^5.0",
         "symfony/dotenv": "^5.0",

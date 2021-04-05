@@ -292,9 +292,6 @@
     "phpmetrics/phpmetrics": {
         "version": "v2.4.1"
     },
-    "phps-cans/quote-strategy.doctrine.escaping": {
-        "version": "1.0.x-dev"
-    },
     "phpstan/phpdoc-parser": {
         "version": "0.3.5"
     },

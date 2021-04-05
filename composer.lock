@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b330c3f7bfd2a4a19d61fcfda7aeda6a",
+    "content-hash": "c55603cfe94d48295b38cd5b7e5b82bf",
     "packages": [
         {
             "name": "brick/math",
@@ -1907,55 +1907,6 @@
                 }
             ],
             "time": "2020-12-23T03:16:25+00:00"
-        },
-        {
-            "name": "phps-cans/quote-strategy.doctrine.escaping",
-            "version": "1.0.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phps-cans/quote-strategy.doctrine.escaping.git",
-                "reference": "61b791b7166c63d29370ea69be793389afd3c756"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phps-cans/quote-strategy.doctrine.escaping/zipball/61b791b7166c63d29370ea69be793389afd3c756",
-                "reference": "61b791b7166c63d29370ea69be793389afd3c756",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/orm": "~2.0",
-                "php": ">= 5.6.0"
-            },
-            "default-branch": true,
-            "type": "user",
-            "autoload": {
-                "psr-4": {
-                    "PSCS\\Doctrine\\ORM\\Mapping\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Xavier HUBERTY",
-                    "email": "x.huberty@thecodingmachine.com",
-                    "homepage": "https://github.com/xhuberty"
-                }
-            ],
-            "description": "This package contains an implementation of Doctrine\\ORM\\Mapping\\QuoteStrategy which automatically escape database reserved keyword for table and column alias.",
-            "homepage": "https://github.com/phps-cans/quote-strategy.doctrine.escaping",
-            "keywords": [
-                "QuoteStrategy",
-                "doctrine",
-                "protected keyword"
-            ],
-            "support": {
-                "issues": "https://github.com/phps-cans/quote-strategy.doctrine.escaping/issues",
-                "source": "https://github.com/phps-cans/quote-strategy.doctrine.escaping/tree/1.0"
-            },
-            "time": "2017-02-16T16:08:39+00:00"
         },
         {
             "name": "psr/cache",
@@ -10174,9 +10125,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "phps-cans/quote-strategy.doctrine.escaping": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
