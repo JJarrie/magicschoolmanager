@@ -14,7 +14,7 @@ class DiceTest extends TestCase
      */
     private $diceFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         srand(1000);
         $this->diceFactory = new DiceFactory(new IntGenerator());
@@ -24,7 +24,7 @@ class DiceTest extends TestCase
     {
         $dice = $this->diceFactory->create(4);
 
-        $this->assertInternalType(IsType::TYPE_INT, $dice->roll());
+        $this->assertIsInt($dice->roll());
     }
 
     public function testRollWith6Faces(): void

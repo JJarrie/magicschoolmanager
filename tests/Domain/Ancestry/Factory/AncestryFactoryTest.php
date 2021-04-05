@@ -13,7 +13,7 @@ class AncestryFactoryTest extends TestCase
      */
     private $ancestryFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->ancestryFactory = new AncestryFactory();
     }

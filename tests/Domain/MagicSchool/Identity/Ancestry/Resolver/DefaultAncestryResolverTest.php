@@ -12,7 +12,7 @@ class DefaultAncestryResolverTest extends TestCase
     /** @var DefaultAncestryResolver */
     private $hogwartAncestryResolver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->hogwartAncestryResolver = new DefaultAncestryResolver();
     }

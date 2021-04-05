@@ -13,7 +13,7 @@ class PeriodFactoryTest extends TestCase
      */
     private $periodFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->periodFactory = new PeriodFactory();
     }

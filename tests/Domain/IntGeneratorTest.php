@@ -13,7 +13,7 @@ class IntGeneratorTest extends TestCase
      */
     private $intGenerator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         mt_srand(1000);
         $this->intGenerator = new IntGenerator();

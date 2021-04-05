@@ -16,7 +16,7 @@ class DefaultRaisingWorldResolverTest extends TestCase
     /** @var DefaultRaisingWorldResolver */
     private $raisingWorldResolver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $arrayGenerator = new ArrayGenerator();
         $raisingWorldProvider = new DefaultRaisingWorldProvider();
