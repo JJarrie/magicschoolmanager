@@ -1,7 +1,5 @@
-PHP_EXEC=@docker-compose exec -T php /entrypoint
-TOOLS_EXEC=@docker-compose run --rm tools
 JS_EXEC=@docker-compose exec -T node /entrypoint
-SYMFONY_CONSOLE=$(PHP_EXEC) bin/console
+SYMFONY_CONSOLE=bin/console
 COMPOSER=$(PHP_EXEC) composer
 YARN=$(JS_EXEC) yarn
 
@@ -157,31 +155,16 @@ psalm: ## Launch Psalm Tool
 
 .PHONY: all-metrics phploc phpmetrics dephpend-metrics dephpend-dsm dephpend-uml dephpend phpmd pdepend
 
-all-metrics: phpmetrics dephpend-metrics dephpend-dsm dephpend-uml pdepend phploc phpmd
-
-phploc: ## Launch phploc tool
-	$(TOOLS_EXEC) vendor/bin/phploc src/
+all-metrics: phpmetrics pdepend phpmd
 
 phpmetrics: ## Generate a PHPMetrics report
-	$(TOOLS_EXEC) vendor/bin/phpmetrics --report-html=build/metrics src/
-
-dephpend-metrics: dephpend ## Launch metrics dephpend
-	docker run --rm -v $(CURDIR)/src:/inspect mihaeu/dephpend:latest metrics /inspect
-
-dephpend-dsm: dephpend ## Launch DSM dephpend
-	docker run --rm -v $(CURDIR)/src:/inspect mihaeu/dephpend:latest dsm /inspect > build/dephpend/dsm.html
-
-dephpend-uml: dephpend ## Launch UML dephpend
-	docker run --rm -v $(CURDIR)/src:/inspect mihaeu/dephpend:latest uml /inspect > build/dephpend/uml.png
-
-dephpend: ## Build dephpend output directory
-	mkdir -p $(CURDIR)/build/dephpend
+	vendor/bin/phpmetrics --report-html=build/metrics src/
 
 phpmd: ## Launch PHPMD
-	$(TOOLS_EXEC) vendor/bin/phpmd --ignore-violations-on-exit src/ text phpmd.xml
+	vendor/bin/phpmd --ignore-violations-on-exit src/ text phpmd.xml
 
 pdepend: ## Launch PDepend
-	$(TOOLS_EXEC) vendor/bin/pdepend --summary-xml=build/pdepend/summary.xml --jdepend-chart=build/pdepend/jdepend.svg --overview-pyramid=build/pdepend/pyramid.svg src/
+	vendor/bin/pdepend --summary-xml=build/pdepend/summary.xml --jdepend-chart=build/pdepend/jdepend.svg --overview-pyramid=build/pdepend/pyramid.svg src/
 
 ###########
 # Symfony #
