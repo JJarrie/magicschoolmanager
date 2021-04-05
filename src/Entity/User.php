@@ -10,6 +10,7 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\User\UserInterface as SfUserInterface;
 
 /**
+ * @ORM\Table(name="app_user")
  * @ORM\Entity(repositoryClass="App\Infrastructure\User\Repository\DoctrineUserRepository")
  * @ORM\HasLifecycleCallbacks
  */

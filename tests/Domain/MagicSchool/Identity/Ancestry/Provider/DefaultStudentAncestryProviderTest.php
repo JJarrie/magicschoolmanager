@@ -11,7 +11,7 @@ class DefaultStudentAncestryProviderTest extends TestCase
     /** @var DefaultStudentAncestryProvider */
     private $hogwartAncestryProvider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->hogwartAncestryProvider = new DefaultStudentAncestryProvider();
     }
