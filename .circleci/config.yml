@@ -147,7 +147,7 @@ workflows:
                   requires: *qa_deps
 
 jobs:
-    build:
+    "Build Images":
         docker:
             - image: cimg/php:8.0.3-node
         steps:
