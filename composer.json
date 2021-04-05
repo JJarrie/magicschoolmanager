@@ -1,4 +1,6 @@
 {
+    "name": "jjarrie/magicschoolmanager",
+    "description": "Managing system for magic school",
     "type": "project",
     "license": "proprietary",
     "require": {
